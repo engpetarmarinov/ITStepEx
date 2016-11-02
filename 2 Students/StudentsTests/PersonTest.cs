@@ -2,7 +2,7 @@
 using System.Text;
 using System.Collections.Generic;
 using NUnit.Framework;
-using _2_Students;
+using Students;
 
 namespace StudentsTests
 {    

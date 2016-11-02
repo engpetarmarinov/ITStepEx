@@ -1,12 +1,12 @@
 ﻿using NUnit.Framework;
-using _2_Students;
+using Students;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _2_Students.Tests
+namespace Students.Tests
 {
     [TestFixture]
     public class PersonCompererTest
@@ -27,6 +27,15 @@ namespace _2_Students.Tests
             var e = new Person("Da Dsadsad", 32);
             var f = new Person("Da Wewqewqe", 22);
             Assert.AreEqual(0, comperer.Compare(e, f));
+        }
+
+        [Test]
+        [TestCase("Petar Marinov")]
+        [TestCase("Petar")]
+        public void GetFirstName(string name)
+        {
+            var comperer = new PersonComperer();
+            Assert.AreEqual("Petar", comperer.GetFirstName(name));
         }
     }
 }

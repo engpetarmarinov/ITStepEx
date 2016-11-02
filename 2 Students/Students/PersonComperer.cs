@@ -4,20 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _2_Students
+namespace Students
 {
     public class PersonComperer : IComparer<Person>
     {
         public int Compare(Person x, Person y)
         {
-            if (x.Name.Length < y.Name.Length)
+            var xFirstName = GetFirstName(x.Name);
+            var yFirstName = GetFirstName(y.Name);
+
+            if (xFirstName.Length < yFirstName.Length)
             {
                 return -1;
-            } else if (x.Name.Length == y.Name.Length)
+            } else if (xFirstName.Length == yFirstName.Length)
             {
                 return 0;
             }
             return 1;
+        }
+
+        public string GetFirstName(string name)
+        {
+            var nameParts = name.Split(' ');
+            return nameParts[0];
         }
     }
 }

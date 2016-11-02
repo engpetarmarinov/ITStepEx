@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace _2_Students
+namespace Students
 {
     public class People
     {
