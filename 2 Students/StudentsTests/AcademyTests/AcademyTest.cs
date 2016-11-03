@@ -47,7 +47,13 @@ namespace StudentsTests.AcademyTests
         [Test]
         public void AddStudentTest()
         {
-            //TODO: continue
+            var student = new Student("Ivan Ivanov", 42);
+            var myConsole = new Mock<IConsole>();
+            var acc = new Academy(myConsole.Object);
+            acc.AddStudent(student);
+            acc.AddStudent(student);
+            acc.AddStudent(student);
+            Assert.AreEqual(3, acc.Students.Count);
         }
     }
 }

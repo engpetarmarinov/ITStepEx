@@ -5,7 +5,10 @@ namespace Students.Academy
     public class Academy
     {
         private readonly IConsole _console;
+
         public List<Course> Courses { get; set; } = new List<Course>();
+
+        public List<Student> Students { get; set; } = new List<Student>();
 
         public Academy(IConsole console)
         {
@@ -30,6 +33,11 @@ namespace Students.Academy
                 var course = Course.CreateCourseFromString(courseInfo);
                 Courses.Add(course);
             }
+        }
+
+        public void AddStudent(Student student)
+        {
+            Students.Add(student);
         }
     }
 }
