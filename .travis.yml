@@ -5,4 +5,4 @@ before_install:
 before_script:
   - nuget restore 2\ Students/Students/Students.sln
 after_script:
-  - nunit-console 2\ Students/StudentsTests/bin/Debug/StudentsTests.dll
+  - nunit-console 2\ Students/StudentsTests/bin/Release/StudentsTests.dll
