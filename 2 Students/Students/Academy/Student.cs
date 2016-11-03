@@ -7,7 +7,7 @@ namespace Students.Academy
     {
         public Student(string name, int age) : base(name, age)
         {
-
+            //TODO: continue
         }
     }
 }
