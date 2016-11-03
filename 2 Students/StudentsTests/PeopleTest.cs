@@ -3,6 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using NUnit.Framework;
 using Students;
+using Moq;
 
 namespace StudentsTests
 {
@@ -14,7 +15,8 @@ namespace StudentsTests
         [TestCase("Banan Wilson//2")]
         public void TestAddPerson(string cmd)
         {
-            var people = new People();
+            var console = new Mock<IConsole>();
+            var people = new People(console.Object);
             people.AddPerson(cmd);
 
             var data = cmd.Split(new[] {"//"}, StringSplitOptions.None);

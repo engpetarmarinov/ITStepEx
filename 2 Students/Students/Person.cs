@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Students
 {
@@ -13,8 +9,8 @@ namespace Students
 
         private void Construct()
         {
-            Name = this.Name ?? "No Name";
-            Age = this.Age ?? 1;
+            Name = Name ?? "No Name";
+            Age = Age ?? 1;
             if (Age < 0)
             {
                 throw new ArgumentException("Value of Age must be possitive number.");
