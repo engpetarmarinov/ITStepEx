@@ -69,11 +69,13 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="AcademyTests\AcademyTest.cs" />
+    <Compile Include="UniversityTests\AcademyTest.cs" />
     <Compile Include="PeopleTest.cs" />
     <Compile Include="PersonCompererTest.cs" />
     <Compile Include="PersonTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UniversityTests\CourseTest.cs" />
+    <Compile Include="UniversityTests\StudentTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Students\Students.csproj">

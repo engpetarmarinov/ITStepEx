@@ -1,4 +1,6 @@
-﻿namespace Students
+﻿using System;
+
+namespace Students
 {
     public interface IConsole
     {

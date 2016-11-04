@@ -51,9 +51,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Academy\Academy.cs" />
-    <Compile Include="Academy\Course.cs" />
-    <Compile Include="Academy\Student.cs" />
+    <Compile Include="University\Academy.cs" />
+    <Compile Include="University\Course.cs" />
+    <Compile Include="University\Exceptions\StudentException.cs" />
+    <Compile Include="University\Student.cs" />
     <Compile Include="IConsole.cs" />
     <Compile Include="MyConsole.cs" />
     <Compile Include="People.cs" />
