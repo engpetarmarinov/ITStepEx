@@ -118,7 +118,9 @@ namespace Students.University
             return Courses.Count + 1;
         }
         
-
+        /// <summary>
+        /// Prompts for course signups
+        /// </summary>
         public void EnterSignups()
         {
             while (true)
