@@ -8,9 +8,8 @@ namespace CalculatorWithDelegates.Calculator
     {
         public Params Parse(string input)
         {
-            var calcType = new Type();
-            var operatorsPat = string.Join("",calcType.OperatorString.Select(o => "\\" + o.Value));
-            var pat = @"(\d+)\s?([" + operatorsPat  + @"])\s?(\d+)";
+            var operatorsPat = string.Join("", Type.OperatorString.Select(o => "\\" + o.Value));
+            var pat = @"(\d+)\s*([" + operatorsPat  + @"])\s*(\d+)";
 
             // Instantiate the regular expression object.
             var r = new Regex(pat, RegexOptions.IgnoreCase);
@@ -28,7 +27,7 @@ namespace CalculatorWithDelegates.Calculator
             var operant2 = m.Groups[3].Captures[0].Value;
 
             return new Params() {
-                Operator = calcType.GetOperator(operation),
+                Operator = Type.GetOperator(operation),
                 Operants = new int[] { int.Parse(operant1), int.Parse(operant2) }
             };
         }

@@ -27,7 +27,7 @@ namespace CalculatorWithDelegates.Calculator
                     cmd += Plus;
                     break;
                 default:
-                    throw new NotImplementedException("This operator is not implemented");
+                    throw new NotImplementedException($"This operator {Type.OperatorString[_parameters.Operator]} is not implemented");
             }
         }
 
