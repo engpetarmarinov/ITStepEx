@@ -8,7 +8,7 @@ namespace Sorter
 {
     public class Selection : Basic
     {
-        public override int[] Order(int[] nums)
+        public override T[] Order<T>(T[] nums)
         {
             for (var i = 0; i < nums.Length - 1; i++)
             {
@@ -16,10 +16,10 @@ namespace Sorter
                 var iMin = i;
                 for (var j = i + 1; j < nums.Length; j++)
                 {
-                    if (nums[iMin] > nums[j])
+                    if (nums[iMin].CompareTo(nums[j]) > 0)
                     {
-                        //a new min index found
-                        iMin = j;
+                            //a new min index found
+                            iMin = j;
                     }
                 }
                 if (iMin != i)

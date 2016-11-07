@@ -8,7 +8,7 @@ namespace Sorter
 {
     public class Bubble : Basic
     {
-        public override int[] Order(int[] nums)
+        public override T[] Order<T>(T[] nums)
         {
             var swapped = false;
             do
@@ -18,7 +18,7 @@ namespace Sorter
                 {
                     var cur = nums[i];
                     var next = nums[i + 1];
-                    if (cur <= next) continue;
+                    if (cur.CompareTo(next) <= 0) continue;
                     nums[i] = next;
                     nums[i + 1] = cur;
                     swapped = true;
