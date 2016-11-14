@@ -1,5 +1,5 @@
 find("Mimi", "Plovdiv")
-find("Mimi")
-serialize("Mimi", "mimi.json", "JSON")
+find("Mimi Shmatkata")
+serialize("Mimi Shmatkata", "mimi.json", "JSON")
 serialize("Mimi", "mimi.xml", "XML")
 add("Gosho Petrov", "Troyan", "987216837")

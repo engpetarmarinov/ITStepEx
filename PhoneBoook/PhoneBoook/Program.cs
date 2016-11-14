@@ -10,6 +10,14 @@ namespace PhoneBoook
     {
         static void Main(string[] args)
         {
+            //get the contacts
+            var parserPhone = new Phone.Parser(new IO.File("../../phone.txt"));
+            var book = parserPhone.ParseBook();
+            book = book;
+
+            var parserCommands = new Phone.Parser(new IO.File("../../commands.txt"));
+            var controller = parserCommands.ParseCommands();
+            controller.InvokeAll(book);
         }
     }
 }
