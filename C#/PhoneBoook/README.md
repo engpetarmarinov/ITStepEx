@@ -9,6 +9,6 @@
 
 
 Duplicates can occur in people names, towns and phone numbers. Write a program to read the phones file and execute a sequence of commands given in the file commands.txt:
-find(name) – display all matching records by given name (first, middle, last or nickname)
-find(name, town) – display all matching records by given name and town
-serialize(name, filename, serializationType) – serializes all records with the given name into a file with the given filename using the given serialization type (XML, JSON)
+* find(name) – display all matching records by given name (first, middle, last or nickname)
+* find(name, town) – display all matching records by given name and town
+* serialize(name, filename, serializationType) – serializes all records with the given name into a file with the given filename using the given serialization type (XML, JSON)
