@@ -1,8 +1,8 @@
 language: csharp
-solution: 2\ Students/Students/Students.sln
+solution: C#/2\ Students/Students/Students.sln
 before_install:
   - sudo apt-get install nunit-console
 before_script:
-  - nuget restore 2\ Students/Students/Students.sln
+  - nuget restore C#/2\ Students/Students/Students.sln
 after_script:
-  - nunit-console 2\ Students/StudentsTests/bin/Release/StudentsTests.dll
+  - nunit-console C#/2\ Students/StudentsTests/bin/Release/StudentsTests.dll
