@@ -16,3 +16,20 @@ ORDER BY 3
 
 -- SELECT the server version
 SELECT @@VERSION;
+
+-- Return a result set after insert with OUTPUT
+INSERT INTO Stats.Tests (testid)
+OUTPUT Inserted.testid
+VALUES('test');
+
+-- IF STATEMENT
+DECLARE @MyProduct int;  
+SET @MyProduct = 3;  
+IF (@MyProduct = 0)
+	SELECT *
+	FROM Production.Products
+	WHERE productid = @MyProduct; 
+ELSE IF (@MyProduct > 0)
+   SELECT *
+   FROM Production.Products
+   WHERE productid BETWEEN 0 AND @MyProduct
