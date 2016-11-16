@@ -134,9 +134,10 @@ SELECT region
 FROM Sales.Customers
 ORDER BY (CASE WHEN region IS NULL THEN 1 ELSE 0 END), region DESC-- Same as NULLS LAST
 
+-- Just some GROUP BY and JOIN
 SELECT o.empid, 
-(e.firstname + ' ' + e.lastname) as fullname, 
-COUNT(*) AS cnt
+	(e.firstname + ' ' + e.lastname) as fullname, 
+	COUNT(*) AS cnt
 FROM Sales.Orders o
 INNER JOIN HR.Employees e ON (e.empid = o.empid)
 GROUP BY o.empid, firstname, lastname
