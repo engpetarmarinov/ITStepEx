@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -12,7 +8,9 @@ namespace TestSqlInjection
     {
         static void Main()
         {
-            string str = "Data Source = TESTUSER-PC\\SQLEXPRESS; " +
+            string str = 
+                //"Data Source = TESTUSER-PC\\SQLEXPRESS; " +
+                "Data Source = WILDALMIGHTY; " + 
                 "Initial Catalog=TSQL2012;" +
                 "Integrated Security = True;";
             ReadOrderData(str);
@@ -20,7 +18,8 @@ namespace TestSqlInjection
 
         private static void ReadOrderData(string connectionString)
         {
-            var injection = "'%%' OR 1=1 --"; //SQL Injection
+            var injectionString = "'%%' OR 1=1 --"; //SQL Injection
+            var injection = injectionString;
             injection = "@filter"; //prepared statement with parameter
             string queryString =
                 "SELECT * FROM Sales.Orders WHERE shipname LIKE " + injection  + ";";
@@ -30,7 +29,7 @@ namespace TestSqlInjection
             {
                 SqlCommand command =
                     new SqlCommand(queryString, connection);
-                SqlParameter param = new SqlParameter("@filter", injection);
+                SqlParameter param = new SqlParameter("@filter", injectionString);
                 command.Parameters.Add(param);
 
                 connection.Open();
@@ -50,8 +49,8 @@ namespace TestSqlInjection
 
         private static void ReadSingleRow(IDataRecord record)
         {
-            Console.WriteLine(String.Format("{0}, {1}, {2}, {3}, {4}", 
-                record[0], record[1], record[2], record[3], record[4]));
+            Console.WriteLine(String.Format("{0}, {1}, {2}, {3}, {4}, {5}, {6}", 
+                record[0], record[1], record[2], record[3], record[4], record[5], record[6]));
         }
     }
 }
