@@ -143,3 +143,26 @@ INNER JOIN HR.Employees e ON (e.empid = o.empid)
 GROUP BY o.empid, firstname, lastname
 HAVING COUNT(*) < 50
 ORDER BY cnt, fullname
+
+-- Case sensitive COLLATE
+SELECT REPLACE('imalo edno vreme EDNO malko prasence i edno momiche' COLLATE SQL_Latin1_General_CP1_CS_AS,'edno','1')
+
+-- DATEs
+DECLARE @datetime DATETIME2 = '17990101';
+SELECT @datetime; -- 1799-01-01 00:00:00.0000000
+
+SELECT * FROM Sales.Orders
+WHERE orderdate > '20010203' -- implicit conversion
+
+SELECT CURRENT_TIMESTAMP
+SELECT SYSUTCDATETIME()
+SELECT SYSDATETIMEOFFSET()
+SELECT DATEDIFF(year, CURRENT_TIMESTAMP,'20000101'); -- '-16'
+
+-- DB NAME
+SELECT DB_NAME() AS [CurrentDatabase]
+
+-- Window function works with set of rows
+SELECT TOP 5 *, RANK() OVER (ORDER BY unitprice DESC) AS rankbyprice
+FROM Production.Products
+ORDER BY productid
