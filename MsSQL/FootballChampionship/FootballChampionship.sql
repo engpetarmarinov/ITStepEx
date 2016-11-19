@@ -6,43 +6,42 @@
 
  -- Number of 1,X,2
  SELECT c.Id, c.Name,
- -- WINS
- SUM(CASE WHEN 		
-		(m.HomeGoals > m.GuestGoals AND c.Id = m.HomeClubId) -- HOME WIN!
-		OR 		
-		(m.GuestGoals > m.HomeGoals AND c.Id = m.GuestClubId) -- GUEST WIN!
-	THEN 1 ELSE 0 
-	END) as 'Wins',
- -- Draws
- SUM(
-	CASE WHEN 
-		m.HomeGoals = m.GuestGoals
-	THEN 1 ELSE 0 
-	END) as 'Draws',
--- LOSES
- SUM(
-	CASE WHEN 
-		(m.HomeGoals > m.GuestGoals AND c.Id = m.GuestClubId)
-		OR 
-		(m.GuestGoals > m.HomeGoals AND c.Id = m.HomeClubId)
-	THEN 1 ELSE 0 
-	END) as 'Loses',
- COUNT(*) as 'All',
- -- Points
- SUM(
-	CASE WHEN 
-		(m.HomeGoals > m.GuestGoals AND c.Id = m.HomeClubId) -- HOME WIN!
-		OR 
-		(m.GuestGoals > m.HomeGoals AND c.Id = m.GuestClubId) -- GUEST WIN!
-	THEN 3 ELSE 0 
-	END)
- +
- SUM(
-	CASE WHEN 
-		m.HomeGoals = m.GuestGoals
-	THEN 1 ELSE 0 
-	END) as 'Points'
-
+	 -- WINS
+	 SUM(CASE WHEN 		
+			(m.HomeGoals > m.GuestGoals AND c.Id = m.HomeClubId) -- HOME WIN!
+			OR 		
+			(m.GuestGoals > m.HomeGoals AND c.Id = m.GuestClubId) -- GUEST WIN!
+		THEN 1 ELSE 0 
+		END) as 'Wins',
+	 -- Draws
+	 SUM(
+		CASE WHEN 
+			m.HomeGoals = m.GuestGoals
+		THEN 1 ELSE 0 
+		END) as 'Draws',
+	-- LOSES
+	 SUM(
+		CASE WHEN 
+			(m.HomeGoals > m.GuestGoals AND c.Id = m.GuestClubId)
+			OR 
+			(m.GuestGoals > m.HomeGoals AND c.Id = m.HomeClubId)
+		THEN 1 ELSE 0 
+		END) as 'Loses',
+	 COUNT(*) as 'All',
+	 -- Points
+	 SUM(
+		CASE WHEN 
+			(m.HomeGoals > m.GuestGoals AND c.Id = m.HomeClubId) -- HOME WIN!
+			OR 
+			(m.GuestGoals > m.HomeGoals AND c.Id = m.GuestClubId) -- GUEST WIN!
+		THEN 3 ELSE 0 
+		END)
+	 +
+	 SUM(
+		CASE WHEN 
+			m.HomeGoals = m.GuestGoals
+		THEN 1 ELSE 0 
+		END) as 'Points'
  FROM Division.Matches AS m
  JOIN Division.Clubs AS c ON (c.Id = m.HomeClubId OR c.Id = m.GuestClubId)
  GROUP BY c.Name, c.Id
@@ -63,27 +62,27 @@ ORDER BY m.StartDate DESC
 
 
 -- All teams that have more wins than half of all mathes played
- SELECT c.Id, c.Name,
- -- WINS
- SUM(
+SELECT c.Id, c.Name,
+	-- WINS
+	SUM(
 	CASE WHEN 
 		(m.HomeGoals > m.GuestGoals AND c.Id = m.HomeClubId) -- HOME WIN!
 		OR 
 		(m.GuestGoals > m.HomeGoals AND c.Id = m.GuestClubId) -- GUEST WIN!
 	THEN 1 ELSE 0 
 	END) as 'Wins',
- COUNT(*) as 'All'	
+	COUNT(*) as 'All'	
 
- FROM Division.Matches AS m
- JOIN Division.Clubs AS c ON (c.Id = m.HomeClubId OR c.Id = m.GuestClubId)
- GROUP BY c.Name, c.Id
- HAVING SUM(CASE WHEN 
-		(m.HomeGoals > m.GuestGoals AND c.Id = m.HomeClubId) -- HOME WIN!
-		OR 		
-		(m.GuestGoals > m.HomeGoals AND c.Id = m.GuestClubId) -- GUEST WIN!
-	THEN 1 ELSE 0 
-	END) > ( COUNT(*)/ 2 )
- ORDER BY Wins DESC, Name
+FROM Division.Matches AS m
+JOIN Division.Clubs AS c ON (c.Id = m.HomeClubId OR c.Id = m.GuestClubId)
+GROUP BY c.Name, c.Id
+HAVING SUM(CASE WHEN 
+	(m.HomeGoals > m.GuestGoals AND c.Id = m.HomeClubId) -- HOME WIN!
+	OR 		
+	(m.GuestGoals > m.HomeGoals AND c.Id = m.GuestClubId) -- GUEST WIN!
+THEN 1 ELSE 0 
+END) > ( COUNT(*)/ 2 )
+ORDER BY Wins DESC, Name
 
 GO;
 
@@ -139,5 +138,19 @@ BEGIN
 END
 GO;
 
--- Execute procedure
+-- Execute procedure - get the table for 2016-12-12
 EXEC Club.GetPoints '2016-12-12'
+
+-- Execute procedure - get the table for 2016-12-20
+EXEC Club.GetPoints '2016-12-20'
+
+
+-- Most goals scorers
+SELECT 
+	f.Id,
+	f.FirstName + N' ' + f.LastName as FullName, 
+	COUNT(*) AS Goals
+FROM Division.MatchScorers s
+JOIN Club.Players f ON (f.Id = s.PlayerId)
+GROUP BY f.Id, f.FirstName, f.LastName
+ORDER BY Goals DESC
