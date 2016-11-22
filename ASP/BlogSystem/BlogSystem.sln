@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogSystem", "BlogSystem\BlogSystem.csproj", "{96794204-4364-4E8B-885C-31DD60DB808B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogSystem.Models", "BlogSystem.Models\BlogSystem.Models.csproj", "{DADF0131-09B3-4A92-AEDE-A530D07ADC98}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogSystem.Data", "BlogSystem.Data\BlogSystem.Data.csproj", "{ECAECBD4-3B64-4992-AD83-B4A223E00D05}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{96794204-4364-4E8B-885C-31DD60DB808B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96794204-4364-4E8B-885C-31DD60DB808B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96794204-4364-4E8B-885C-31DD60DB808B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96794204-4364-4E8B-885C-31DD60DB808B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DADF0131-09B3-4A92-AEDE-A530D07ADC98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DADF0131-09B3-4A92-AEDE-A530D07ADC98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DADF0131-09B3-4A92-AEDE-A530D07ADC98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DADF0131-09B3-4A92-AEDE-A530D07ADC98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECAECBD4-3B64-4992-AD83-B4A223E00D05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECAECBD4-3B64-4992-AD83-B4A223E00D05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECAECBD4-3B64-4992-AD83-B4A223E00D05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECAECBD4-3B64-4992-AD83-B4A223E00D05}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
