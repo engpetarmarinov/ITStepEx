@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using BlogSystem.Data;
 using BlogSystem.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BlogSystem.Controllers
 {
@@ -58,6 +59,8 @@ namespace BlogSystem.Controllers
         {
             if (ModelState.IsValid)
             {
+                post.Date = DateTime.Now;
+                post.UserId = User.Identity.GetUserId();
                 Data.Posts.Add(post);
                 Data.SaveChanges();
                 return RedirectToAction("Index");
@@ -99,7 +102,16 @@ namespace BlogSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                Data.Entry(post).State = EntityState.Modified;
+                //Chain syntax
+                var oldPost = Data.Posts.FirstOrDefault(p => p.Id == post.Id);
+                //SQL like syntax
+                //var oldPost = (from p in Data.Posts
+                //    where p.Id == post.Id
+                //    select new Post()).Take(1);
+
+                oldPost.Name = post.Name;
+                oldPost.Content = post.Content;
+                Data.Entry(oldPost).State = EntityState.Modified;
                 Data.SaveChanges();
                 return RedirectToAction("Index");
             }

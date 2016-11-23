@@ -12,7 +12,7 @@ namespace BlogSystem.Data
     {
         public BlogSystemDbContext() : base("BlogSystemConnection")
         {
-            
+            this.Database.Log = Logger.Log;
         }
 
         public static BlogSystemDbContext Create()

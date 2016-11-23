@@ -49,6 +49,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -58,6 +59,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BlogSystemDbContext.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="Migrations\201611220950492_InitialCreate.cs" />
+    <Compile Include="Migrations\201611220950492_InitialCreate.Designer.cs">
+      <DependentUpon>201611220950492_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611231312421_AddDataToPosts.cs" />
+    <Compile Include="Migrations\201611231312421_AddDataToPosts.Designer.cs">
+      <DependentUpon>201611231312421_AddDataToPosts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611231346044_Change Posts User_Id to UserId.cs" />
+    <Compile Include="Migrations\201611231346044_Change Posts User_Id to UserId.Designer.cs">
+      <DependentUpon>201611231346044_Change Posts User_Id to UserId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -69,6 +84,17 @@
       <Project>{dadf0131-09b3-4a92-aede-a530d07adc98}</Project>
       <Name>BlogSystem.Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201611220950492_InitialCreate.resx">
+      <DependentUpon>201611220950492_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611231312421_AddDataToPosts.resx">
+      <DependentUpon>201611231312421_AddDataToPosts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611231346044_Change Posts User_Id to UserId.resx">
+      <DependentUpon>201611231346044_Change Posts User_Id to UserId.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

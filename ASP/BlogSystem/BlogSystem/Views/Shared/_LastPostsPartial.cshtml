@@ -1,0 +1,15 @@
+﻿@model IEnumerable<BlogSystem.Models.Post>
+
+<div class="row">
+
+@foreach (var item in Model) {
+    <h4 >
+        @Html.DisplayFor(modelItem => item.Name)
+    </h4>
+        
+    <div>
+        @Html.DisplayFor(modelItem => item.Content)
+    </div>
+}
+
+</div>

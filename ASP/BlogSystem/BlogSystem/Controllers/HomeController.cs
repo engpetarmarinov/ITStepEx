@@ -6,11 +6,13 @@ using System.Web.Mvc;
 
 namespace BlogSystem.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {
-            return View();
+            Response.Write("sadsad");
+            var posts = Data.Posts.Take(3).ToList();
+            return View(posts);
         }
 
         public ActionResult About()
