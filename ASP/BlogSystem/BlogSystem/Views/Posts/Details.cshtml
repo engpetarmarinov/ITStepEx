@@ -1,4 +1,5 @@
-﻿@model BlogSystem.Models.Post
+﻿@using BlogSystem.Models
+@model BlogSystem.Models.PostViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -32,3 +33,7 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+<div>
+    @Html.Partial("_CommentCreatePartial", new CommentViewModel() { PostId = Model.Id })
+    @Html.Partial("_CommentsListPartial")
+</div>

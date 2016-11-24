@@ -48,6 +48,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -72,6 +73,10 @@
     <Compile Include="Migrations\201611231346044_Change Posts User_Id to UserId.Designer.cs">
       <DependentUpon>201611231346044_Change Posts User_Id to UserId.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611240858515_AddComments.cs" />
+    <Compile Include="Migrations\201611240858515_AddComments.Designer.cs">
+      <DependentUpon>201611240858515_AddComments.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -94,6 +99,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611231346044_Change Posts User_Id to UserId.resx">
       <DependentUpon>201611231346044_Change Posts User_Id to UserId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611240858515_AddComments.resx">
+      <DependentUpon>201611240858515_AddComments.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

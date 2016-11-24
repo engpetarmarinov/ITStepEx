@@ -10,7 +10,6 @@ namespace BlogSystem.Controllers
     {
         public ActionResult Index()
         {
-            Response.Write("sadsad");
             var posts = Data.Posts.Take(3).ToList();
             return View(posts);
         }

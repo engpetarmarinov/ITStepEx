@@ -4,6 +4,7 @@ namespace BlogSystem.Data
 {
     public class Logger
     {
+        // Log connection info and queries into the web console
         public static void Log(string text)
         {
             if (HttpContext.Current != null)

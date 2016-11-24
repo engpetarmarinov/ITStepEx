@@ -34,12 +34,48 @@ namespace BlogSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            //Get the post
             Post post = Data.Posts.Find(id);
             if (post == null)
             {
                 return HttpNotFound();
             }
-            return View(post);
+
+            //Get comments
+            //var comments = Data.Comments
+            //    .Where(c => c.PostId == post.Id)
+            //    .Select(c => new CommentViewModel()
+            //    {
+            //        Id = c.Id,
+            //        Content = c.Content,
+            //        Date = c.Date,
+            //        UserName = (c.UserId)
+            //    }).ToList();
+
+            var comments = (from c in Data.Comments
+                join u in Data.Users on c.UserId equals u.Id
+                where c.PostId == post.Id
+                orderby c.Date descending
+                select new CommentViewModel
+                {
+                    Id = c.Id,
+                    Content = c.Content,
+                    Date = c.Date,
+                    UserName = u.UserName
+                }).Take(10).ToList();
+
+            //Create the view model
+            PostViewModel viewPost = new PostViewModel()
+            {
+                Id = post.Id,
+                Name = post.Name,
+                Content = post.Content,
+                UserName = User.Identity.GetUserName(),
+                Comments = comments
+            };
+
+            return View(viewPost);
         }
 
         // GET: Posts/Create
@@ -153,6 +189,32 @@ namespace BlogSystem.Controllers
                 Data.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+        // POST: Posts/Details
+        [HttpPost]
+        [ActionName("Details")]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public ActionResult CreateComment([Bind(Include = "PostId,Content")] CommentViewModel comment)
+        {
+            if (ModelState.IsValid)
+            {
+                var newComment = new Comment()
+                {
+                    PostId = comment.PostId,
+                    Content = comment.Content,
+                    Date = DateTime.Now,
+                    UserId = User.Identity.GetUserId(),
+
+                };
+                Data.Comments.Add(newComment);
+                Data.SaveChanges();
+                return RedirectToAction("Details", new { id = comment.PostId });
+            }
+
+            return Details(comment.PostId);
         }
     }
 }
