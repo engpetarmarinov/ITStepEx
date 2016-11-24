@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using BlogSystem.Data;
 using BlogSystem.Models;
 using Microsoft.AspNet.Identity;
+using AutoMapper.QueryableExtensions;
 
 namespace BlogSystem.Controllers
 {
@@ -18,13 +19,18 @@ namespace BlogSystem.Controllers
         // GET: Posts
         public ActionResult Index()
         {
-            return View(Data.Posts.Select(p => new PostViewModel()
-            {
-                Id = p.Id,
-                Content = p.Content,
-                Name = p.Name,
-                UserName = p.User.UserName
-            }).ToList());
+            //Use AutoMapper to map Post -> PostViewModel
+            var posts = Data.Posts.ProjectTo<PostViewModel>().ToList();
+            return View(posts);
+            //Use manual mapping Post -> PostViewModel
+            //return View(Data.Posts.Select(p => new PostViewModel()
+            //{
+            //    Id = p.Id,
+            //    Content = p.Content,
+            //    Name = p.Name,
+            //    UserName = p.User.UserName
+            //}).ToList());
+
         }
 
         // GET: Posts/Details/5
