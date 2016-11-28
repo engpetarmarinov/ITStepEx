@@ -5,10 +5,12 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using ChallengesProject.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using ChallengesProject.Models;
+using ChallengesProject.ViewModels;
+using ChallengesProject.Services;
 
 namespace ChallengesProject.Controllers
 {
