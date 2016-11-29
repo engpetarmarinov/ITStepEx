@@ -59,9 +59,9 @@ namespace ChallengesProject.Services
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "395595893799185",
+               appSecret: "3f59dfa4e9269e4e0f386a121d04dfc2");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
