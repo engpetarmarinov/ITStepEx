@@ -1,18 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using ChallengesProject.Models;
 
 namespace ChallengesProject.Data
 {
     public class ChallengesDbContext : IdentityDbContext
     {
-        public ChallengesDbContext() : base("ChallengesDbConnection")
+        public System.Data.Entity.DbSet<Challenge> Challenges { get; set; }
+
+        public ChallengesDbContext() : this(new DebugLogger())
+        {
+
+        }
+
+        public ChallengesDbContext(ILogger logger) : base("ChallengesDbConnection")
         {
             //Add custom logger
-            //this.Database.Log += Logger.Log;
+            this.Database.Log += logger.Log;
         }
 
         public static ChallengesDbContext Create()

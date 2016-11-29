@@ -6,10 +6,10 @@ namespace ChallengesProject.Data
 {
     using ChallengesProject.Data.Repositories;
 
-    public class ChallengesData
+    public class ChallengesData : IChallengesData
     {
         protected ChallengesDbContext Context { get; set; }
-        protected Dictionary<Type, object> Repositories { get; set; }
+        protected Dictionary<Type, object> Repositories { get; set; } = new Dictionary<Type, object>();
         
         public IRepository<Challenge> Challenges => GetRepository<Challenge>();
 

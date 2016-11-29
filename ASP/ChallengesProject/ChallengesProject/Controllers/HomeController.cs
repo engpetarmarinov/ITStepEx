@@ -3,13 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ChallengesProject.Services;
+using ChallengesProject.Data;
 
 namespace ChallengesProject.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
+        private ChallengesService challengesService;
+
+        public HomeController() : this(new ChallengesService(new ChallengesData()))
+        {
+
+        }
+
+        public HomeController(ChallengesService service) : base()
+        {
+            challengesService = service;
+        }
+
         public ActionResult Index()
         {
+            challengesService.GetAll();
             return View();
         }
 

@@ -12,12 +12,12 @@ using ChallengesProject.Services;
 namespace ChallengesProject.Controllers
 {
     [Authorize]
-    public class ManageController : Controller
+    public class ManageController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        public ManageController()
+        public ManageController() : base()
         {
         }
 

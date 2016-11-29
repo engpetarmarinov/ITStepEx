@@ -206,6 +206,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -277,6 +278,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -287,6 +289,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ChallengesProject.Data\ChallengesProject.Data.csproj">
+      <Project>{8516C6E7-B2EC-45A3-8056-6C30967F7424}</Project>
+      <Name>ChallengesProject.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ChallengesProject.Models\ChallengesProject.Models.csproj">
       <Project>{f161ca55-76f7-4e82-96e6-d5db1c5a7702}</Project>
       <Name>ChallengesProject.Models</Name>
