@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ChallengesProject.Data;
 using ChallengesProject.Data.Repositories;
+using System.Linq.Expressions;
 
 namespace ChallengesProject.Services
 {
@@ -17,9 +18,17 @@ namespace ChallengesProject.Services
             this.Data = data;
         }
 
-        public IEnumerable<T> GetAll()
+        public IQueryable<T> GetAll()
         {
             return Data.GetRepository<T>().All();
+        }
+
+        public IQueryable<T> Get(
+            Expression<Func<T, bool>> filter = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+            string includeProperties = "")
+        {
+            return Data.GetRepository<T>().Get(filter, orderBy, includeProperties);
         }
 
         public T Find(object id)

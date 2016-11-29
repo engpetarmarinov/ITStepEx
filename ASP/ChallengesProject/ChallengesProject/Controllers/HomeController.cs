@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using ChallengesProject.Services;
 using ChallengesProject.Data;
+using AutoMapper.QueryableExtensions;
+using ChallengesProject.ViewModels;
 
 namespace ChallengesProject.Controllers
 {
@@ -24,7 +26,12 @@ namespace ChallengesProject.Controllers
 
         public ActionResult Index()
         {
-            challengesService.GetAll();
+            var challenges = challengesService.GetAll()?.ProjectTo<ChallengeViewModel>().ToList();
+            var challengesFiltered = challengesService.Get(
+                    orderBy: cs => cs.OrderByDescending(c => c.Created),
+                    includeProperties: "Name"
+                )?.ProjectTo<ChallengeViewModel>().ToList();
+
             return View();
         }
 

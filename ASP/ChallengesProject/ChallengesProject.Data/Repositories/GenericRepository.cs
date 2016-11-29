@@ -17,7 +17,7 @@ namespace ChallengesProject.Data.Repositories
             this.dbSet = context.Set<TEntity>();
         }
 
-        public virtual IEnumerable<TEntity> Get(
+        public virtual IQueryable<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "")
@@ -37,11 +37,11 @@ namespace ChallengesProject.Data.Repositories
 
             if (orderBy != null)
             {
-                return orderBy(query).ToList();
+                return orderBy(query);
             }
             else
             {
-                return query.ToList();
+                return query;
             }
         }
 
@@ -71,7 +71,7 @@ namespace ChallengesProject.Data.Repositories
             return entityToDelete;
         }
 
-        public IEnumerable<TEntity> All()
+        public IQueryable<TEntity> All()
         {
             return Get();
         }

@@ -1,7 +1,8 @@
 namespace ChallengesProject.Data.Migrations
 {
-    using System;
-    using System.Data.Entity;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Models;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
@@ -14,18 +15,30 @@ namespace ChallengesProject.Data.Migrations
 
         protected override void Seed(ChallengesProject.Data.ChallengesDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            var adminRoleName = "Admin";
+            var adminEmailAdress = "admin@admin.com";
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            if (!context.Roles.Any(r => r.Name == adminRoleName))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var roleAdmin = new IdentityRole { Name = adminRoleName };
+
+                manager.Create(roleAdmin);
+            }
+
+            if (!context.Users.Any(u => u.UserName == adminEmailAdress))
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+                var user = new ApplicationUser { UserName = adminEmailAdress, Email = adminEmailAdress };
+
+                var identityResult = manager.Create(user, "1234");
+                if (identityResult.Succeeded) {
+                    manager.AddToRole(user.Id, adminRoleName);
+                }
+                
+            }
         }
     }
 }

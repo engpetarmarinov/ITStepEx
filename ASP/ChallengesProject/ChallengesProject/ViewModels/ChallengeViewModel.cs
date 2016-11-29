@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace ChallengesProject.Models
+namespace ChallengesProject.ViewModels
 {
-    public class Challenge
+    public class ChallengeViewModel
     {
         public int Id { get; set; }
 
@@ -14,21 +13,12 @@ namespace ChallengesProject.Models
 
         public string Description { get; set; }
 
-        /// <summary>
-        /// Path to the cover image of the challenge
-        /// </summary>
         public string Image { get; set; }
 
-        /// <summary>
-        /// Duration in days
-        /// </summary>
         public int Duration { get; set; }
 
         public DateTime Created { get; set; }
 
         public string UserId { get; set; }
-
-        public virtual ApplicationUser User { get; set; }
-
     }
 }
