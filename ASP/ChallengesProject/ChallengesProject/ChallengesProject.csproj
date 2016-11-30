@@ -319,7 +319,7 @@
       <Project>{f161ca55-76f7-4e82-96e6-d5db1c5a7702}</Project>
       <Name>ChallengesProject.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Services\ChallengesProject.Services.csproj">
+    <ProjectReference Include="..\ChallengesProject.Services\ChallengesProject.Services.csproj">
       <Project>{853ffb6d-78ab-4556-bcaf-915c2d50bb1f}</Project>
       <Name>ChallengesProject.Services</Name>
     </ProjectReference>

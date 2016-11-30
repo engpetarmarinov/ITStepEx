@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChallengesProject.Models", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChallengesProject.Data", "ChallengesProject.Data\ChallengesProject.Data.csproj", "{8516C6E7-B2EC-45A3-8056-6C30967F7424}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChallengesProject.Services", "Services\ChallengesProject.Services.csproj", "{853FFB6D-78AB-4556-BCAF-915C2D50BB1F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChallengesProject.Services", "ChallengesProject.Services\ChallengesProject.Services.csproj", "{853FFB6D-78AB-4556-BCAF-915C2D50BB1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
