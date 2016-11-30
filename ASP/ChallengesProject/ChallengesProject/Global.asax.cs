@@ -18,8 +18,10 @@ namespace ChallengesProject
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            //Autofac
+            AutofacWebConfig.Configure();
             //Auto Mapper
-            AutoMapperWebConfiguration.Configure();
+            AutoMapperWebConfig.Configure();
         }
     }
 }

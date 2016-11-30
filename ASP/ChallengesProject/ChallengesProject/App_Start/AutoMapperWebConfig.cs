@@ -4,7 +4,7 @@ using ChallengesProject.ViewModels;
 
 namespace ChallengesProject
 {
-    public static class AutoMapperWebConfiguration
+    public static class AutoMapperWebConfig
     {
         public static void Configure()
         {

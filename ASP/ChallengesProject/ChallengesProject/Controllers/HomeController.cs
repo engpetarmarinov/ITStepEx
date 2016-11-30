@@ -13,12 +13,7 @@ namespace ChallengesProject.Controllers
     public class HomeController : BaseController
     {
         private ChallengesService challengesService;
-
-        public HomeController() : this(new ChallengesService(new ChallengesData()))
-        {
-
-        }
-
+                
         public HomeController(ChallengesService service) : base()
         {
             challengesService = service;
