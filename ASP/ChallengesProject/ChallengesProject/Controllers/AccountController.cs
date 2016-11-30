@@ -345,7 +345,7 @@ namespace ChallengesProject.Controllers
                 if (info == null)
                 {
                     return View("ExternalLoginFailure");
-                }
+                }                
                 var user = new ChallengesProject.Models.ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)

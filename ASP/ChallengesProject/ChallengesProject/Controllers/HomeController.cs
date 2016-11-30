@@ -7,6 +7,7 @@ using ChallengesProject.Services;
 using ChallengesProject.Data;
 using AutoMapper.QueryableExtensions;
 using ChallengesProject.ViewModels;
+using System.Security.Claims;
 
 namespace ChallengesProject.Controllers
 {
@@ -21,13 +22,6 @@ namespace ChallengesProject.Controllers
 
         public ActionResult Index()
         {
-            //just test services
-            var challenges = challengesService.GetAll()?.ProjectTo<ChallengeViewModel>().ToList();
-            var challengesFiltered = challengesService.Get(
-                    orderBy: cs => cs.OrderByDescending(c => c.Created),
-                    includeProperties: "Name"
-                )?.ProjectTo<ChallengeViewModel>().ToList();
-
             return View();
         }
 

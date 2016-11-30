@@ -7,6 +7,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 using System.Web.Http.Dependencies;
+using Microsoft.Owin.Security.Facebook;
 
 namespace ChallengesProject.Services
 {
@@ -55,9 +56,26 @@ namespace ChallengesProject.Services
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            app.UseFacebookAuthentication(
-               appId: "395595893799185",
-               appSecret: "3f59dfa4e9269e4e0f386a121d04dfc2");
+            var fb = new FacebookAuthenticationOptions();
+            fb.Scope.Add("email");
+            fb.Scope.Add("user_friends");
+            fb.AppId = "395595893799185";
+            fb.AppSecret = "3f59dfa4e9269e4e0f386a121d04dfc2";
+            fb.Provider = new FacebookAuthenticationProvider()
+            {
+                OnAuthenticated = async FbContext => {
+                    FbContext.Identity.AddClaim(
+                        new System.Security.Claims.Claim("FacebookAccessToken", FbContext.AccessToken)
+                    );
+                }
+            };
+            fb.SignInAsAuthenticationType = DefaultAuthenticationTypes.ExternalCookie;
+            app.UseFacebookAuthentication(fb);
+
+            //app.UseFacebookAuthentication(
+            //   appId: "395595893799185",
+            //   appSecret: "3f59dfa4e9269e4e0f386a121d04dfc2"
+            //);            
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

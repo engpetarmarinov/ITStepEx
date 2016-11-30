@@ -6,18 +6,26 @@
 @if (Request.IsAuthenticated)
 {
     <p>
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-info btn-lg" })
     </p>
 }
-@foreach(var challenge in Model)
-{
-    <div class="row">
+@{
+    var row = 1;
+}
+<div class="row">
+    @foreach (var challenge in Model)
+    {
         <div class="col-md-4">
             <h2>@challenge.Name</h2>
             <p>
                 @challenge.Description
             </p>
-            <p>@Html.ActionLink("View more", "Details", "Challenges", null, new { @class = "btn btn-default" })</p>
+            <p>@Html.ActionLink("View more", "Details", "Challenges", null, new { @class = "btn btn-default btn-sm" })</p>
         </div>
-    </div>
-}
+        if (Model.Count > row && row % 3 == 0)
+        {
+            @Html.Raw("</div><div class=row>");
+        }
+        row++;
+    }
+</div>
