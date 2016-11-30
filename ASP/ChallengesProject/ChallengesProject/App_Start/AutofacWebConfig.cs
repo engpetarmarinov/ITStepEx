@@ -8,6 +8,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity.EntityFramework;
 using ChallengesProject.Models;
+using ChallengesProject.Controllers;
+using System.Linq;
 
 namespace ChallengesProject
 {
@@ -18,22 +20,26 @@ namespace ChallengesProject
             var builder = new ContainerBuilder();
 
             // You can register controllers all at once using assembly scanning...
-            builder.RegisterControllers(typeof(MvcApplication).Assembly);
+            builder.RegisterControllers(typeof(MvcApplication).Assembly);//.PropertiesAutowired();
 
             // ...or you can register individual controlllers manually.
             //builder.RegisterType<HomeController>().InstancePerRequest();
 
-            builder.RegisterType<ChallengesData>().As<IChallengesData>();
+            //DB Context
+            builder.RegisterType<ChallengesDbContext>().AsSelf().InstancePerRequest();
+
+            //Data unit of work
+            builder.RegisterType<ChallengesData>().As<IChallengesData>().InstancePerRequest();
             builder.RegisterType<DebugLogger>().As<ILogger>();
+
+            //Auto inject property BaseController.Data
+            builder.RegisterType<HomeController>().OnActivating(e => e.Instance.Data = e.Context.Resolve<IChallengesData>());
 
             //Register ChallengesProject.Data assemly
             builder.RegisterAssemblyTypes(typeof(ChallengesData).Assembly);
 
             //Register ChallengesProject.Services assemly
             builder.RegisterAssemblyTypes(typeof(BaseService<ChallengesData>).Assembly);
-
-            //DB Context
-            builder.RegisterType<ChallengesDbContext>().AsSelf().InstancePerRequest();
 
             //Identity with Autofac
             //This will say to Autofac that when I ask for an ApplicationUserManager, please get the UserManager from the OwinContext in my Current HttpContext.

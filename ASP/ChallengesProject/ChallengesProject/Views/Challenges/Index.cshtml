@@ -1,0 +1,23 @@
+﻿@model List<ChallengeViewModel>
+<div class="jumbotron">
+    <h1>The Challenges</h1>
+    <p class="lead">Challenges! Challenges everywhere!</p>
+</div>
+@if (Request.IsAuthenticated)
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
+@foreach(var challenge in Model)
+{
+    <div class="row">
+        <div class="col-md-4">
+            <h2>@challenge.Name</h2>
+            <p>
+                @challenge.Description
+            </p>
+            <p>@Html.ActionLink("View more", "Details", "Challenges", null, new { @class = "btn btn-default" })</p>
+        </div>
+    </div>
+}

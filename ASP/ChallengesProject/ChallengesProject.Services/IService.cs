@@ -20,5 +20,7 @@ namespace ChallengesProject.Services
         void Add(T entity);
 
         void Delete(object id);
+
+        int SaveChanges();
     }
 }

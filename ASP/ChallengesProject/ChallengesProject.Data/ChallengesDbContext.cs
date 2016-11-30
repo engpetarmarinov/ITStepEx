@@ -11,6 +11,6 @@ namespace ChallengesProject.Data
         {
             //Add custom logger
             this.Database.Log += logger.Log;
-        }        
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace ChallengesProject
         private static void ConfigureChallengesMapping()
         {
             Mapper.Initialize(cfg => {
-                cfg.CreateMap<Challenge, ChallengeViewModel>();
+                cfg.CreateMap<Challenge, ChallengeViewModel>().ReverseMap();
             });
         }
 

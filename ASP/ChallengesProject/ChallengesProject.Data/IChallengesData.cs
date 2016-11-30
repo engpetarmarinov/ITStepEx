@@ -9,5 +9,7 @@ namespace ChallengesProject.Data
         IRepository<ApplicationUser> Users{ get; }
 
         IRepository<T> GetRepository<T>() where T : class;
+
+        int SaveChanges();
     }
 }

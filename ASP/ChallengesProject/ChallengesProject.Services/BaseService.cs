@@ -50,5 +50,10 @@ namespace ChallengesProject.Services
         {
             Data.GetRepository<T>().Delete(id);
         }
+
+        public virtual int SaveChanges()
+        {
+            return Data.SaveChanges();
+        }
     }
 }

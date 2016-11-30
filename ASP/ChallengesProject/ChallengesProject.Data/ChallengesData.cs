@@ -33,5 +33,10 @@ namespace ChallengesProject.Data
             return (IRepository<T>)this.Repositories[typeOfRepository];
         }
 
+        public int SaveChanges()
+        {
+            return Context.SaveChanges();
+        }
+
     }
 }

@@ -17,11 +17,11 @@ namespace ChallengesProject.Controllers
     [Authorize]
     public class AccountController : BaseController
     {
-        public AccountController()
+        public AccountController() : base()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager ) : base()
         {
             UserManager = userManager;
             SignInManager = signInManager;
