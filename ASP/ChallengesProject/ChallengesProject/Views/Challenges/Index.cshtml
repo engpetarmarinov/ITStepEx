@@ -6,7 +6,7 @@
 @if (Request.IsAuthenticated)
 {
     <p>
-        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-info btn-lg" })
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary btn-lg" })
     </p>
 }
 @{
@@ -16,11 +16,14 @@
     @foreach (var challenge in Model)
     {
         <div class="col-md-4">
-            <h2>@challenge.Name</h2>
-            <p>
-                @challenge.Description
-            </p>
-            <p>@Html.ActionLink("View more", "Details", "Challenges", null, new { @class = "btn btn-default btn-sm" })</p>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+                        @Html.ActionLink(challenge.Name, "Details", "Challenges", new { id = challenge.Id }, null)
+                    </h2>
+                </div>
+                <div class="panel-body">@challenge.Description</div>
+            </div>
         </div>
         if (Model.Count > row && row % 3 == 0)
         {
@@ -29,3 +32,12 @@
         row++;
     }
 </div>
+
+<nav aria-label="...">
+    <ul class="pagination">
+        <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+        <li class=""><a href="#">2</a></li>
+        <li class=""><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+</nav>

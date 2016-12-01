@@ -10,6 +10,8 @@ using System.Web.Mvc;
 using AutoMapper;
 using ChallengesProject.Models;
 using Microsoft.AspNet.Identity;
+using System.Net;
+using PagedList;
 
 namespace ChallengesProject.Controllers
 {
@@ -23,13 +25,17 @@ namespace ChallengesProject.Controllers
         }
 
         // GET: Challenges
-        public ActionResult Index()
+        public ActionResult Index(int? page = 1)
         {
             var challenges = challengesService.Get(
                     orderBy: cs => cs.OrderByDescending(c => c.Created),
                     includeProperties: "Name"
                 )?.ProjectTo<ChallengeViewModel>().ToList();
 
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            //return View(challenges.ToPagedList(pageNumber, pageSize));
             return View(challenges);
         }
 
@@ -41,6 +47,7 @@ namespace ChallengesProject.Controllers
             return View();
         }
 
+        // POST: Challenges/Create
         [HttpPost]
         [Authorize]
         public ActionResult Create(ChallengeViewModel challengeViewModel)
@@ -62,6 +69,21 @@ namespace ChallengesProject.Controllers
                 return RedirectToAction("Index");
             }
             return View(challengeViewModel);
+        }
+
+        // GET: Challenges/Details/{id}
+        [HttpGet]
+        public ActionResult Details(int? id)
+        {
+            if (id == null) {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var challenge = challengesService.Find(id);
+            if (challenge == null) {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+            var challengeView = Mapper.Map<ChallengeViewModel>(challenge);
+            return View(challengeView);
         }
     }
 }
