@@ -10,11 +10,22 @@
 
 <div class="row">
     <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            Register for free and start improving yourself! Keep motivated and create new habits.
-        </p>
-        <p>@Html.ActionLink("Register", "Register", "Account", null, new { @class = "btn btn-default" })</p>
+        @if (Request.IsAuthenticated)
+        {
+            <h2>View your profile</h2>
+            <p>
+                Explore your profile and check your status.
+            </p>
+            <p>@Html.ActionLink("View", "Index", "Manage", null, new { @class = "btn btn-default" })</p>
+        }
+        else
+        {
+            <h2>Getting started</h2>
+            <p>
+                Register for free and start improving yourself! Keep motivated and create new habits.
+            </p>
+            <p>@Html.ActionLink("Register", "Register", "Account", null, new { @class = "btn btn-default" })</p>
+        }
     </div>
     <div class="col-md-4">
         <h2>Challenge yourself</h2>

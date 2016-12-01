@@ -17,6 +17,7 @@ namespace ChallengesProject.Controllers
 {
     public class ChallengesController : BaseController
     {
+        const string ImagesPath = "~/images/challenges/";
         private ChallengesService challengesService;
 
         public ChallengesController(ChallengesService service) : base()
@@ -27,16 +28,17 @@ namespace ChallengesProject.Controllers
         // GET: Challenges
         public ActionResult Index(int? page = 1)
         {
+            ViewBag.ImagesPath = ImagesPath;
+            //TODO: add limit
             var challenges = challengesService.Get(
+                    //filter:
                     orderBy: cs => cs.OrderByDescending(c => c.Created),
                     includeProperties: "Name"
                 )?.ProjectTo<ChallengeViewModel>().ToList();
-
-
-            int pageSize = 3;
+            
+            int pageSize = 6;
             int pageNumber = (page ?? 1);
-            //return View(challenges.ToPagedList(pageNumber, pageSize));
-            return View(challenges);
+            return View(challenges.ToPagedList(pageNumber, pageSize));            
         }
 
         // GET: Challenges/Create
@@ -54,15 +56,20 @@ namespace ChallengesProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Use your file here
-                using (MemoryStream memoryStream = new MemoryStream())
-                {
-                    challengeViewModel.ImageFIle?.InputStream.CopyTo(memoryStream);
-                }
                 challengeViewModel.Created = DateTime.Now;
                 challengeViewModel.UserId = User.Identity.GetUserId();
-                //TODO: resieze, save image, get patt, save to DB
-                //challengeViewModel.Image = "path to the image"
+                //TODO: resieze uploaded image
+                // Save uploaded pic
+                if (challengeViewModel.ImageFile != null)
+                {
+                    var picName = challengesService.GenerateImageName(challengeViewModel.ImageFile.FileName);
+                    var subfolder = challengesService.GenerateSubfolderName(User.Identity.GetUserId());
+                    string path = Path.Combine(Server.MapPath(ImagesPath), subfolder);
+                    // upload file
+                    challengesService.SaveFile(challengeViewModel.ImageFile, path, picName);
+                    // save file path
+                    challengeViewModel.Image = Path.Combine(subfolder, picName);
+                }
                 var challenge = Mapper.Map<Challenge>(challengeViewModel);
                 challengesService.Add(challenge);
                 challengesService.SaveChanges();

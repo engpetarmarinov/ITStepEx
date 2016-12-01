@@ -328,6 +328,10 @@
       <Project>{8516C6E7-B2EC-45A3-8056-6C30967F7424}</Project>
       <Name>ChallengesProject.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ChallengesProject.Helpers\ChallengesProject.Helpers.csproj">
+      <Project>{eb34b49f-42e5-4158-91d4-67f214a6a02d}</Project>
+      <Name>ChallengesProject.Helpers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ChallengesProject.Models\ChallengesProject.Models.csproj">
       <Project>{f161ca55-76f7-4e82-96e6-d5db1c5a7702}</Project>
       <Name>ChallengesProject.Models</Name>

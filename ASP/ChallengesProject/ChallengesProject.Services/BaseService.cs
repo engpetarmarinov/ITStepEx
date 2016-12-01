@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using ChallengesProject.Data;
 using ChallengesProject.Data.Repositories;
 using System.Linq.Expressions;
+using System.Web;
+using System.IO;
 
 namespace ChallengesProject.Services
 {
@@ -54,6 +56,16 @@ namespace ChallengesProject.Services
         public virtual int SaveChanges()
         {
             return Data.SaveChanges();
+        }
+
+        public void SaveFile(HttpPostedFileBase ImageFile, string path, string fileName)
+        {
+            if (!Directory.Exists(path))
+            {
+                // Try to create the directories recursively.
+                Directory.CreateDirectory(path);
+            }
+            ImageFile.SaveAs(Path.Combine(path, fileName));
         }
     }
 }

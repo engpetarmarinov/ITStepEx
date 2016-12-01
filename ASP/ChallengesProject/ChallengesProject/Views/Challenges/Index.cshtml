@@ -1,13 +1,14 @@
-﻿@model List<ChallengeViewModel>
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<ChallengeViewModel>
+
 <div class="jumbotron">
     <h1>The Challenges</h1>
     <p class="lead">Challenges! Challenges everywhere!</p>
 </div>
 @if (Request.IsAuthenticated)
 {
-    <p>
-        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary btn-lg" })
-    </p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary btn-lg" })
+    <hr />
 }
 @{
     var row = 1;
@@ -16,28 +17,59 @@
     @foreach (var challenge in Model)
     {
         <div class="col-md-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h2 class="panel-title">
-                        @Html.ActionLink(challenge.Name, "Details", "Challenges", new { id = challenge.Id }, null)
-                    </h2>
+            <div class="flip panel-flip">
+                <div class="front">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">
+                                @Html.ActionLink(challenge.Name, "Details", "Challenges", new { id = challenge.Id }, null)
+                            </h2>
+                        </div>
+                        <div class="panel-body">
+                            @if (challenge.Image != null)
+                            {
+                                <img class="img-responsive img-rounded" src="/images/challenges/@challenge.Image" alt="" />
+                            }
+                            else
+                            {
+                                @challenge.Description
+                            }
+
+                        </div>
+                    </div>
                 </div>
-                <div class="panel-body">@challenge.Description</div>
+                <div class="back">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">
+                                @Html.ActionLink(challenge.Name, "Details", "Challenges", new { id = challenge.Id }, null)
+                            </h2>
+                        </div>
+                        <div class="panel-body">
+                            @challenge.Description
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
         if (Model.Count > row && row % 3 == 0)
         {
-            @Html.Raw("</div><div class=row>");
+            @Html.Raw("</div><hr /><div class=row>");
         }
         row++;
     }
 </div>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-<nav aria-label="...">
-    <ul class="pagination">
-        <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-        <li class=""><a href="#">2</a></li>
-        <li class=""><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
-    </ul>
-</nav>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
+@section Scripts {
+    <script>
+        $(function () {
+            $(".flip").flip({
+                trigger: 'hover'
+            });
+        });
+    </script>
+}

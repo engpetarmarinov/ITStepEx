@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Web;
 
 namespace ChallengesProject.Services
 {
@@ -22,5 +23,7 @@ namespace ChallengesProject.Services
         void Delete(object id);
 
         int SaveChanges();
+
+        void SaveFile(HttpPostedFileBase ImageFile, string path, string fileName);
     }
 }

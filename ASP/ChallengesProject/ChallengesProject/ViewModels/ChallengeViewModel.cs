@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using ChallengesProject.Helpers;
 
 namespace ChallengesProject.ViewModels
 {
@@ -16,11 +17,12 @@ namespace ChallengesProject.ViewModels
 
         [Required]
         [DataType(DataType.MultilineText)]
+        [StringLength(400)]
         [Display(Name = "Description")]
         public string Description { get; set; }
         
-        [FileExtensions(Extensions = "jpg,jpeg,png")]
-        public HttpPostedFileBase ImageFIle { get; set; }
+        [ValidateFile(maxSize: 2, errorMessage: "The image file must be jpg or png and not larger than {0} MB.")]
+        public HttpPostedFileBase ImageFile { get; set; }
 
         public string Image { get; set; }
 
