@@ -2,6 +2,7 @@
 using ChallengesProject.Data;
 using ChallengesProject.Models;
 using System.IO;
+using System.Linq;
 
 namespace ChallengesProject.Services
 {
@@ -21,6 +22,14 @@ namespace ChallengesProject.Services
         {
             var subFolder = text.Substring(0, 8);
             return subFolder + Path.DirectorySeparatorChar;
+        }
+
+        public IQueryable<Challenge> GetUserChallenges(string userId)
+        {
+            return Data.Challenges.Get(
+                filter: c => c.UserId == userId,
+                orderBy: cs => cs.OrderByDescending(c => c.Created)
+            );
         }
     }
 

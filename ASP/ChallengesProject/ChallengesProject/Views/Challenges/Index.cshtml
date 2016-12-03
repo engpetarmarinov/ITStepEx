@@ -7,62 +7,20 @@
 </div>
 @if (Request.IsAuthenticated)
 {
-    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary btn-lg" })
-    <hr />
-}
-@{
-    var row = 1;
-}
-<div class="row">
-    @foreach (var challenge in Model)
-    {
-        <div class="col-md-4">
-            <div class="flip panel-flip">
-                <div class="front">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h2 class="panel-title">
-                                @Html.ActionLink(challenge.Name, "Details", "Challenges", new { id = challenge.Id }, null)
-                            </h2>
-                        </div>
-                        <div class="panel-body">
-                            @if (challenge.Image != null)
-                            {
-                                <img class="img-responsive img-rounded" src="/images/challenges/@challenge.Image" alt="" />
-                            }
-                            else
-                            {
-                                @challenge.Description
-                            }
-
-                        </div>
-                    </div>
-                </div>
-                <div class="back">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h2 class="panel-title">
-                                @Html.ActionLink(challenge.Name, "Details", "Challenges", new { id = challenge.Id }, null)
-                            </h2>
-                        </div>
-                        <div class="panel-body">
-                            @challenge.Description
-                        </div>
-                    </div>
-                </div>
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="flip">
+                <div class="front">@Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary btn-lg" })</div>
+                <div class="back">@Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-info btn-lg" })</div>
             </div>
         </div>
+    </div>
+<hr />
+}
 
-        if (Model.Count > row && row % 3 == 0)
-        {
-            @Html.Raw("</div><hr /><div class=row>");
-        }
-        row++;
-    }
+<div id="ChallengesListWrapper">
+    @Html.Partial("_ListChallengesPanelsPartial")
 </div>
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
 
 @section Scripts {
     <script>

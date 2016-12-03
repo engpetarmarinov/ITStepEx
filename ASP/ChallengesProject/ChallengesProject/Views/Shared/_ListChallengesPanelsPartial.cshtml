@@ -1,0 +1,44 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<ChallengeViewModel>
+
+@{
+    var row = 1;
+}
+<div class="row">
+    @foreach (var challenge in Model)
+    {
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+                        @Html.ActionLink(challenge.Name, "Details", "Challenges", new { id = challenge.Id }, null)
+                    </h2>
+                </div>
+                <div class="panel-body">
+                    @if (challenge.Image != null)
+                    {
+                        <img class="img-responsive img-rounded" src="/images/challenges/@challenge.Image" alt="" />
+                    }
+                    else
+                    {
+                        @challenge.Description
+                    }
+
+                </div>
+            </div>
+        </div>
+        if (Model.Count > row && row % 3 == 0)
+        {
+            @Html.Raw("</div><hr /><div class=row>");
+        }
+        row++;
+    }
+</div>
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(
+    Model, 
+    page => Url.Action( ViewBag.ActionName, new { page }), 
+    PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "ChallengesListWrapper" })
+)

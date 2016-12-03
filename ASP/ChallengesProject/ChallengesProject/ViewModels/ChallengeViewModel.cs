@@ -21,7 +21,7 @@ namespace ChallengesProject.ViewModels
         [Display(Name = "Description")]
         public string Description { get; set; }
         
-        [ValidateFile(maxSize: 2, errorMessage: "The image file must be jpg or png and not larger than {0} MB.")]
+        [ValidateImage(maxSize: 2, errorMessage: "The image file must be jpg or png and not larger than {0} MB.")]
         public HttpPostedFileBase ImageFile { get; set; }
 
         public string Image { get; set; }

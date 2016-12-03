@@ -7,8 +7,6 @@ namespace ChallengesProject.Services
     {
         public UsersService(IChallengesData data) : base(data)
         {
-        }
-
-
+        }        
     }
 }

@@ -1,0 +1,15 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<UserViewModel>
+<div class="jumbotron">
+    @foreach (var user in Model)
+    {
+        <div class="row">
+            <div class="col-sm-4">@user.Name</div>
+            <div class="col-sm-8">
+                <a class="btn btn-sm btn-default">Send friend request</a>
+                <a class="btn btn-sm btn-default">Send friend request</a>
+                <a class="btn btn-sm btn-default">Send friend request</a>
+            </div>
+        </div>
+    }
+</div>

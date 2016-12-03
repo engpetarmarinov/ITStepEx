@@ -10,7 +10,10 @@ using System.Web;
 
 namespace ChallengesProject.Helpers
 {
-    public class ValidateFileAttribute : ValidationAttribute
+    /// <summary>
+    /// Attribute used to validate HttpPostedFileBase images
+    /// </summary>
+    public class ValidateImageAttribute : ValidationAttribute
     {
         /// <summary>
         /// Max size of the image in MB
@@ -24,11 +27,11 @@ namespace ChallengesProject.Helpers
 
         public new string ErrorMessage { get; set; } = "The file must be less than {0} MB.";
 
-        public ValidateFileAttribute() : base()
+        public ValidateImageAttribute() : base()
         {
         }
 
-        public ValidateFileAttribute(int maxSize = 1) : base()
+        public ValidateImageAttribute(int maxSize = 1) : base()
         {
             MaxSize = maxSize;
         }
@@ -38,7 +41,7 @@ namespace ChallengesProject.Helpers
         /// </summary>
         /// <param name="maxSize">The maximum size of the file in MB</param>
         /// <param name="errorMessage">The error message. It could has a placeholder for the maximum size value. Ex: "File is larger than {0}.".</param>
-        public ValidateFileAttribute(
+        public ValidateImageAttribute(
             int maxSize = 1,
             string errorMessage = null) : base()
         {
@@ -49,7 +52,7 @@ namespace ChallengesProject.Helpers
             MaxSize = maxSize;
         }
 
-        public ValidateFileAttribute(
+        public ValidateImageAttribute(
             List<ImageFormat> allowedExtensions,
             int maxSize = 1,             
             string errorMessage = null) : this(maxSize, errorMessage)

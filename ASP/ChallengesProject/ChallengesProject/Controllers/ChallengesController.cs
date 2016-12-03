@@ -28,17 +28,32 @@ namespace ChallengesProject.Controllers
         // GET: Challenges
         public ActionResult Index(int? page = 1)
         {
+            var challenges = GetChallenges(page);            
+            //Pass the action name to the partial view
+            ViewBag.ActionName = "Challenges";            
             ViewBag.ImagesPath = ImagesPath;
-            //TODO: add limit
+            return View(challenges);            
+        }
+
+        // GET: Challenges/Challenges - Used for Index Pagination
+        public ActionResult Challenges(int? page = 1)
+        {
+            var challenges = GetChallenges(page);            
+            //Pass the action name to the partial view
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            ViewBag.ActionName = actionName;
+            ViewBag.ImagesPath = ImagesPath;
+            return PartialView("_ListChallengesPanelsPartial", challenges);
+        }
+
+        private IPagedList<ChallengeViewModel> GetChallenges(int? page)
+        {
             var challenges = challengesService.Get(
-                    //filter:
-                    orderBy: cs => cs.OrderByDescending(c => c.Created),
-                    includeProperties: "Name"
-                )?.ProjectTo<ChallengeViewModel>().ToList();
-            
-            int pageSize = 6;
+                    orderBy: cs => cs.OrderByDescending(c => c.Created)
+                )?.ProjectTo<ChallengeViewModel>();//ToList(); -- Do not invoke ToList here, ToPagedList will put limit and offset
+            int pageSize = 2;
             int pageNumber = (page ?? 1);
-            return View(challenges.ToPagedList(pageNumber, pageSize));            
+            return challenges?.ToPagedList(pageNumber, pageSize);
         }
 
         // GET: Challenges/Create
@@ -91,6 +106,38 @@ namespace ChallengesProject.Controllers
             }
             var challengeView = Mapper.Map<ChallengeViewModel>(challenge);
             return View(challengeView);
+        }
+
+        // GET: Challenges/My
+        [HttpGet]
+        [Authorize]
+        public ActionResult My(int? page)
+        {
+            var challenges = GetMyChallenges(page);
+            //Pass the action name to the partial view
+            ViewBag.ActionName = "MyChallenges";
+            return View(challenges);
+        }
+
+        // GET: Challenges/MyChallenges - used for AJAX pagination
+        [HttpGet]
+        [Authorize]        
+        public ActionResult MyChallenges(int? page)
+        {
+            var challenges = GetMyChallenges(page);
+            //Pass the action name to the partial view
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            ViewBag.ActionName = actionName;
+            return PartialView("_ListChallengesPanelsPartial", challenges);
+        }
+
+        private IPagedList<ChallengeViewModel> GetMyChallenges(int? page)
+        {
+            var challenges = challengesService.GetUserChallenges(User.Identity.GetUserId())
+                .ProjectTo<ChallengeViewModel>();
+            int pageSize = 6;
+            int pageNumber = (page ?? 1);
+            return challenges.ToPagedList(pageNumber, pageSize);
         }
     }
 }
