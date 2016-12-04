@@ -4,7 +4,21 @@
         <div class="panel-heading">
         <h2 class="panel-title">@Model.Name</h2>
         </div>
-        <div class="panel-body">@Model.Description</div>
+        <div class="panel-body">
+            @if (Model.Image != null)
+            {
+                <img class="img-responsive img-rounded" src="/images/challenges/@Model.Image" alt="" />
+            }
+            @Model.Description
+        </div>
     </div>
     <p>Created by @Model.UserName</p>
+    <hr/>
+    <p>
+        @using (Ajax.BeginForm(new AjaxOptions { Url = Url.Action("ChallengeMyself","Challenges")}))
+        {
+            @Html.Hidden("challengeId", @Model.Id)
+            <input type="submit" class="btn btn-warning btn-lg" value="Challenge Myself" />
+        }
+    </p>
 </div>

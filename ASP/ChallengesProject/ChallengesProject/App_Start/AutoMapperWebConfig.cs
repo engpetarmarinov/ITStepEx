@@ -24,7 +24,10 @@ namespace ChallengesProject
 
         private static void ConfigureChallengesMapping(IMapperConfigurationExpression cfg)
         {
-            cfg.CreateMap<Challenge, ChallengeViewModel>().ReverseMap();
+            cfg.CreateMap<Challenge, ChallengeViewModel>()
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName));
+
+            cfg.CreateMap<ChallengeViewModel, Challenge>();
         }
 
         // ... etc

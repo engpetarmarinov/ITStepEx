@@ -14,7 +14,9 @@ namespace ChallengesProject.Data
         public IRepository<Challenge> Challenges => GetRepository<Challenge>();
 
         public IRepository<ApplicationUser> Users => GetRepository<ApplicationUser>();
-        
+
+        public IRepository<UsersChallenges> UsersChallenges => GetRepository<UsersChallenges>();
+
         public ChallengesData(ChallengesDbContext context)
         {
             this.Context = context;

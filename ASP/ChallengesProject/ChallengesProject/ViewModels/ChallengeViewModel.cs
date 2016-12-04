@@ -17,7 +17,7 @@ namespace ChallengesProject.ViewModels
 
         [Required]
         [DataType(DataType.MultilineText)]
-        [StringLength(400)]
+        [StringLength(1000)]
         [Display(Name = "Description")]
         public string Description { get; set; }
         

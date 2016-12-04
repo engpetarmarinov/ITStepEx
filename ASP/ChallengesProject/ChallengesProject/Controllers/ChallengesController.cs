@@ -28,17 +28,21 @@ namespace ChallengesProject.Controllers
         // GET: Challenges
         public ActionResult Index(int? page = 1)
         {
-            var challenges = GetChallenges(page);            
+            var challenges = GetChallenges(page);
             //Pass the action name to the partial view
             ViewBag.ActionName = "Challenges";            
             ViewBag.ImagesPath = ImagesPath;
-            return View(challenges);            
+            return View(challenges);
         }
 
         // GET: Challenges/Challenges - Used for Index Pagination
         public ActionResult Challenges(int? page = 1)
         {
-            var challenges = GetChallenges(page);            
+            if (!Request.IsAjaxRequest())
+            {
+                return RedirectToAction("Index/"+ page);
+            }
+            var challenges = GetChallenges(page);
             //Pass the action name to the partial view
             string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
             ViewBag.ActionName = actionName;
@@ -106,6 +110,15 @@ namespace ChallengesProject.Controllers
             }
             var challengeView = Mapper.Map<ChallengeViewModel>(challenge);
             return View(challengeView);
+        }
+
+        // POST: Challenges/ChallengeMyself
+        [HttpPost]
+        [Authorize]
+        public JsonResult ChallengeMyself(int? challengeId)
+        {
+            var data = new { kur = 3 };
+            return Json(data);
         }
 
         // GET: Challenges/My
