@@ -13,6 +13,7 @@ namespace ChallengesProject
             {
                 ConfigureChallengesMapping(cfg);
                 ConfigUsersMapping(cfg);
+                ConfigureUsersChallengesMapping(cfg);
             });
         }
 
@@ -28,6 +29,11 @@ namespace ChallengesProject
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName));
 
             cfg.CreateMap<ChallengeViewModel, Challenge>();
+        }
+
+        private static void ConfigureUsersChallengesMapping(IMapperConfigurationExpression cfg)
+        {
+            cfg.CreateMap<UsersChallenges, UsersChallengesViewModel>().ReverseMap();
         }
 
         // ... etc

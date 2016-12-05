@@ -33,5 +33,10 @@ namespace ChallengesProject.ViewModels
         public string UserId { get; set; }
 
         public string UserName { get; set; }
+
+        public UsersChallengesViewModel MyselfChallenged { get; set; }
+
+        public List<UsersChallengesViewModel> UsersChallenged { get; set; }
+
     }
 }

@@ -30,6 +30,9 @@ namespace ChallengesProject
                       "~/Content/bootstrap-social.css",
                       "~/Content/font-awesome.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/challenges").Include(
+                      "~/Scripts/Challenges.js"));
         }
     }
 }

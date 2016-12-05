@@ -7,6 +7,8 @@ namespace ChallengesProject.Data
     {
         public System.Data.Entity.DbSet<Challenge> Challenges { get; set; }
 
+        public System.Data.Entity.DbSet<UsersChallenges> UsersChallenges { get; set; }
+
         //Default constructor for migrations       
         public ChallengesDbContext() : base("ChallengesDbConnection") 
         {

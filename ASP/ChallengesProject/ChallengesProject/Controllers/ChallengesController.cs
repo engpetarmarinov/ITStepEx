@@ -19,10 +19,12 @@ namespace ChallengesProject.Controllers
     {
         const string ImagesPath = "~/images/challenges/";
         private ChallengesService challengesService;
+        private UsersChallengesService userChallengesService;
 
-        public ChallengesController(ChallengesService service) : base()
+        public ChallengesController(ChallengesService service, UsersChallengesService userChallengesService) : base()
         {
             challengesService = service;
+            this.userChallengesService = userChallengesService;
         }
 
         // GET: Challenges
@@ -109,17 +111,25 @@ namespace ChallengesProject.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
             var challengeView = Mapper.Map<ChallengeViewModel>(challenge);
+
+            //get challenged users
+            challengeView.UsersChallenged = userChallengesService
+                .Get(filter: uc => uc.ChallengeId == id)
+                .ProjectTo<UsersChallengesViewModel>()
+                .ToList();
+
+            if (Request.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                challengeView.MyselfChallenged = userChallengesService
+                    .Get(filter: uc => uc.ChallengeId == id && uc.ToUserId == userId)
+                    .ProjectTo<UsersChallengesViewModel>()
+                    .FirstOrDefault();
+            }
+
             return View(challengeView);
         }
-
-        // POST: Challenges/ChallengeMyself
-        [HttpPost]
-        [Authorize]
-        public JsonResult ChallengeMyself(int? challengeId)
-        {
-            var data = new { kur = 3 };
-            return Json(data);
-        }
+                
 
         // GET: Challenges/My
         [HttpGet]

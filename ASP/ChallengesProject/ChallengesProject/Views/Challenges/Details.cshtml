@@ -15,10 +15,26 @@
     <p>Created by @Model.UserName</p>
     <hr/>
     <p>
-        @using (Ajax.BeginForm(new AjaxOptions { Url = Url.Action("ChallengeMyself","Challenges")}))
+        @using (Ajax.BeginForm(new AjaxOptions {
+            HttpMethod = "POST",
+            Url = @Url.HttpRouteUrl("DefaultApi", new { controller = "UsersChallenges", action = "MyChallenges", id = Model.Id }),
+            OnSuccess = "Challenges.ChallengeMyselfCallback"
+        }))
         {
             @Html.Hidden("challengeId", @Model.Id)
-            <input type="submit" class="btn btn-warning btn-lg" value="Challenge Myself" />
+            <input type="submit" class="btn btn-warning btn-lg" id="ChallengeMyself" value="Challenge Myself" />
         }
     </p>
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/challenges")
+    <script>
+        $(document).ready(function () {
+            @if (@Model.MyselfChallenged != null)
+            {
+                @:Challenges.ChangeChallengeUserBtn($('#ChallengeMyself'), @((int)Model.MyselfChallenged.Status) );
+            }
+        });
+    </script>
+}

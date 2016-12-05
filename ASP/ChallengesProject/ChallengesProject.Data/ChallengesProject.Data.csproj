@@ -66,6 +66,18 @@
     <Compile Include="Migrations\201612041140269_UsersChallenges.Designer.cs">
       <DependentUpon>201612041140269_UsersChallenges.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612051306030_UsersChallengesTable.cs" />
+    <Compile Include="Migrations\201612051306030_UsersChallengesTable.Designer.cs">
+      <DependentUpon>201612051306030_UsersChallengesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612051403576_UsersChallenges-Add-Unique-Index.cs" />
+    <Compile Include="Migrations\201612051403576_UsersChallenges-Add-Unique-Index.Designer.cs">
+      <DependentUpon>201612051403576_UsersChallenges-Add-Unique-Index.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612051543281_FixUsersChallengesUniqueIndex.cs" />
+    <Compile Include="Migrations\201612051543281_FixUsersChallengesUniqueIndex.Designer.cs">
+      <DependentUpon>201612051543281_FixUsersChallengesUniqueIndex.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
@@ -84,6 +96,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201612041140269_UsersChallenges.resx">
       <DependentUpon>201612041140269_UsersChallenges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612051306030_UsersChallengesTable.resx">
+      <DependentUpon>201612051306030_UsersChallengesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612051403576_UsersChallenges-Add-Unique-Index.resx">
+      <DependentUpon>201612051403576_UsersChallenges-Add-Unique-Index.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612051543281_FixUsersChallengesUniqueIndex.resx">
+      <DependentUpon>201612051543281_FixUsersChallengesUniqueIndex.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

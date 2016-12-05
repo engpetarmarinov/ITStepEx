@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
+using Autofac.Integration.WebApi;
 using System.Web.Mvc;
 using ChallengesProject.Services;
 using ChallengesProject.Data;
@@ -10,6 +11,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using ChallengesProject.Models;
 using ChallengesProject.Controllers;
 using System.Linq;
+using System.Web.Http;
 
 namespace ChallengesProject
 {
@@ -21,6 +23,9 @@ namespace ChallengesProject
 
             // You can register controllers all at once using assembly scanning...
             builder.RegisterControllers(typeof(MvcApplication).Assembly);//.PropertiesAutowired();
+
+            //Register web controllers
+            builder.RegisterApiControllers(typeof(MvcApplication).Assembly);
 
             // ...or you can register individual controlllers manually.
             //builder.RegisterType<HomeController>().InstancePerRequest();
@@ -56,6 +61,8 @@ namespace ChallengesProject
             // Set the dependency resolver to be Autofac.
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            //Set the WebApi DependencyResolver
+            GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver((IContainer)container); 
         }
     }
 }

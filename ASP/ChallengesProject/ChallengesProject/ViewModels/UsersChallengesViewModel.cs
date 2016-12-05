@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChallengesProject.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,7 +10,7 @@ namespace ChallengesProject.ViewModels
     {
 
         public int Id { get; set; }
-
+        
         public int ChallengeId { get; set; }
 
         public virtual ChallengeViewModel Challenge { get; set; }
@@ -18,7 +19,7 @@ namespace ChallengesProject.ViewModels
         
         public virtual UserViewModel ToUser { get; set; }
 
-        public int Status { get; set; }
+        public UsersChallenges.StatusType Status { get; set; }
 
         public DateTime? StartedOn { get; set; }
     }
