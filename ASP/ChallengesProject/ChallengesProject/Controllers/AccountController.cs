@@ -312,6 +312,13 @@ namespace ChallengesProject.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    var user = await UserManager.FindAsync(loginInfo.Login);
+                    if (user != null)
+                    {
+                        await StoreFacebookAuthToken(user);
+                        await SignInAsync(user, isPersistent: false);
+
+                    }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -324,6 +331,35 @@ namespace ChallengesProject.Controllers
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
                     return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
             }
+        }
+
+        private async Task StoreFacebookAuthToken(ApplicationUser user)
+        {
+            var claimsIdentity = await AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
+            if (claimsIdentity != null)
+            {
+                // Retrieve the existing claims for the user and add the FacebookAccessTokenClaim 
+                var currentClaims = await UserManager.GetClaimsAsync(user.Id);
+                var facebookAccessToken = claimsIdentity.FindAll("FacebookAccessToken").First();
+                if (currentClaims.Count() <= 0)
+                {
+                    //add fb access token
+                    await UserManager.AddClaimAsync(user.Id, facebookAccessToken);
+                }
+                else
+                {
+                    //renew fb access token
+                    await UserManager.RemoveClaimAsync(user.Id, currentClaims[0]);
+                    await UserManager.AddClaimAsync(user.Id, facebookAccessToken);
+
+                }
+            }
+        }
+
+        private async Task SignInAsync(ApplicationUser user, bool isPersistent)
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+            AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, await user.GenerateUserIdentityAsync(UserManager));
         }
 
         //

@@ -51,9 +51,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\FacebookAccessTokenAttribute.cs" />
+    <Compile Include="Attributes\FacebookMappingAttribute.cs" />
     <Compile Include="BrowserJsonFormatter.cs" />
-    <Compile Include="PagedListRenderOptions.cs" />
-    <Compile Include="ValidateFileAttribute.cs" />
+    <Compile Include="Attributes\ValidateFileAttribute.cs" />
+    <Compile Include="Extensions\DynamicExtension.cs" />
+    <Compile Include="Extensions\HtmlHelper.cs" />
+    <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

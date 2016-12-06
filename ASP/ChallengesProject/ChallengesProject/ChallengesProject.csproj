@@ -68,6 +68,10 @@
       <HintPath>..\packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
+      <HintPath>..\packages\Facebook.7.0.6\lib\net45\Facebook.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -240,7 +244,15 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\AutoMapperWebConfig.cs" />
+    <Compile Include="Attributes\FacebookAccessTokenAttribute.cs" />
+    <Compile Include="Attributes\FacebookMappingAttribute.cs" />
+    <Compile Include="Attributes\ValidateFileAttribute.cs" />
+    <Compile Include="BrowserJsonFormatter.cs" />
     <Compile Include="Controllers\Api\UsersChallengesController.cs" />
+    <Compile Include="Controllers\FacebookController.cs" />
+    <Compile Include="Extensions\DynamicExtension.cs" />
+    <Compile Include="Extensions\HtmlHelper.cs" />
+    <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="PagedListRenderOptionsExtended.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -253,6 +265,7 @@
     </Compile>
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\ChallengeViewModel.cs" />
+    <Compile Include="ViewModels\FacebookFriendViewModel.cs" />
     <Compile Include="ViewModels\UsersChallengesViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
@@ -327,6 +340,7 @@
     <Content Include="Views\Shared\_ListChallengesPanelsPartial.cshtml" />
     <Content Include="Views\Challenges\My.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Facebook\FB_TaggableFriends.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -346,10 +360,6 @@
     <ProjectReference Include="..\ChallengesProject.Data\ChallengesProject.Data.csproj">
       <Project>{8516C6E7-B2EC-45A3-8056-6C30967F7424}</Project>
       <Name>ChallengesProject.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ChallengesProject.Helpers\ChallengesProject.Helpers.csproj">
-      <Project>{eb34b49f-42e5-4158-91d4-67f214a6a02d}</Project>
-      <Name>ChallengesProject.Helpers</Name>
     </ProjectReference>
     <ProjectReference Include="..\ChallengesProject.Models\ChallengesProject.Models.csproj">
       <Project>{f161ca55-76f7-4e82-96e6-d5db1c5a7702}</Project>

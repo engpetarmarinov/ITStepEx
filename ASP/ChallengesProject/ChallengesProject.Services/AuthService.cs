@@ -8,6 +8,8 @@ using Microsoft.Owin.Security.Cookies;
 using Owin;
 using System.Web.Http.Dependencies;
 using Microsoft.Owin.Security.Facebook;
+using System.Configuration;
+using System.Threading.Tasks;
 
 namespace ChallengesProject.Services
 {
@@ -57,19 +59,20 @@ namespace ChallengesProject.Services
             //   consumerSecret: "");
 
             var fb = new FacebookAuthenticationOptions();
-            fb.Scope.Add("email");
-            fb.Scope.Add("user_friends");
-            fb.AppId = "395595893799185";
-            fb.AppSecret = "3f59dfa4e9269e4e0f386a121d04dfc2";
+            fb.Scope.Add(ConfigurationManager.AppSettings["Facebook_Scope"]);
+            fb.AppId = ConfigurationManager.AppSettings["Facebook_AppId"];
+            fb.AppSecret = ConfigurationManager.AppSettings["Facebook_AppSecret"];
+            fb.SignInAsAuthenticationType = DefaultAuthenticationTypes.ExternalCookie;
+            fb.SendAppSecretProof = true;
             fb.Provider = new FacebookAuthenticationProvider()
             {
-                OnAuthenticated = async FbContext => {
+                OnAuthenticated = FbContext => {
                     FbContext.Identity.AddClaim(
                         new System.Security.Claims.Claim("FacebookAccessToken", FbContext.AccessToken)
                     );
+                    return Task.FromResult(0);
                 }
             };
-            fb.SignInAsAuthenticationType = DefaultAuthenticationTypes.ExternalCookie;
             app.UseFacebookAuthentication(fb);
 
             //app.UseFacebookAuthentication(

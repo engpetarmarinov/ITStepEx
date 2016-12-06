@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Web;
-using ChallengesProject.Helpers;
+using ChallengesProject.Attributes;
 
 namespace ChallengesProject.ViewModels
 {

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<FacebookFriendViewModel>
+<div class="panel panel-primary">
+    <div class="panel-heading">Facebook friends</div>
+    <div class="panel-body" >
+        <p>
+            <input type="text" id="searchFbFriends" class="input-lg" placeholder="Type to search">
+        </p>
+        <div style="max-height: 400px; overflow-y: scroll; overflow-x: hidden;">
+            @foreach (var friend in Model)
+            {
+                <div class="row namesFbFriends" >
+                    <div class="col-sm-4">
+                        <img src="@friend.ImageURL" class="img-responsive" alt="@Html.DisplayFor(modelItem => friend.Name)" />
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.DisplayFor(modelItem => friend.Name)
+                    </div>
+                    <div class="col-sm-6" id="listFbFriends"></div>
+                        @using (Ajax.BeginForm(new AjaxOptions
+                        {
+                            HttpMethod = "POST",
+                            Url = @Url.HttpRouteUrl("DefaultApi", new { controller = "UsersChallenges", action = "Challenge", id = friend.TaggingId }),
+                            OnSuccess = "Challenges.ChallengeMyselfCallback"
+                        }))
+                        {
+                            @Html.Hidden("taggingId", @friend.TaggingId)
+                            <input type="submit" class="btn btn-warning btn-lg" id="ChallengeFriend" value="Challenge" />
+                        }
+                    <hr />
+                </div>
+            }
+        </div>
+        <p>@Model.Count() friends</p>
+    </div>
+</div>
+
+
+<script>
+    var FacebookSearchFriends = (function () {
+        var $rows = $(".namesFbFriends");
+        $(document).on("keyup", "#searchFbFriends", function () {            
+            var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
+                reg = RegExp(val, 'iu'),
+                text;
+
+            $rows.show().filter(function () {
+                text = $(this).text().replace(/\s+/g, ' ');
+                return !reg.test(text);
+            }).hide().length;
+        });
+    })();
+    
+</script>

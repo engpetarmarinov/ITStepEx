@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace ChallengesProject.Helpers
+namespace ChallengesProject.Attributes
 {
     /// <summary>
     /// Attribute used to validate HttpPostedFileBase images

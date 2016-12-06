@@ -13,3 +13,43 @@
         </div>
     }
 </div>
+
+@if (Request.IsAuthenticated)
+{
+<div class="jumbotron">
+    @using (Ajax.BeginForm(
+        "FB_TaggableFriends", new { controller = "Facebook" },
+        new AjaxOptions
+        {
+            OnFailure = "handleError(xhr,'Taggable_Friends')",
+            HttpMethod = "Get",
+            UpdateTargetId = "Taggable_Friends",
+            LoadingElementId = "divLoadingTaggableFriends"
+        },
+        new
+        {
+            id = "Taggable_Friends_Form"
+        }
+    ))
+    {
+        <div id="divLoadingTaggableFriends" style="display:none;">
+            <img src="~/images/loader.gif" class="img-responsive" />
+        </div>
+    }
+    <div id="Taggable_Friends"></div>
+</div>
+
+    @section Scripts {
+        <script type="text/javascript">
+
+		                $("#Taggable_Friends_Form").submit();
+                        function handleError(ajaxContext, UpdateTargetId) {
+                            if (ajaxContext != null &&
+                                ajaxContext.responseText != null) {
+		                        $("#" + UpdateTargetId).html(ajaxContext.responseText);
+                            }
+                        }
+
+        </script>
+    }
+}
