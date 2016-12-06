@@ -14,7 +14,7 @@ namespace ChallengesProject.Extensions
 {
 
 
-    public static class FacebookHtmlExtensions
+    public static class FacebookHtmlExtension
     {
         public static string GetPropertyPath<TEntity, TProperty>(Expression<Func<TEntity, TProperty>> property)
         {

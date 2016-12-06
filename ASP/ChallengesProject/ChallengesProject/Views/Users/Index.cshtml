@@ -14,7 +14,7 @@
     }
 </div>
 
-@if (Request.IsAuthenticated)
+@if (Request.IsAuthenticated && Context.ApplicationInstance.Context.Items["access_token"] != null)
 {
 <div class="jumbotron">
     @using (Ajax.BeginForm(
@@ -32,8 +32,8 @@
         }
     ))
     {
-        <div id="divLoadingTaggableFriends" style="display:none;">
-            <img src="~/images/loader.gif" class="img-responsive" />
+        <div class="hidden" id="divLoadingTaggableFriends">
+            <img src="~/images/loader.gif" class="center img-responsive" />
         </div>
     }
     <div id="Taggable_Friends"></div>
@@ -42,13 +42,13 @@
     @section Scripts {
         <script type="text/javascript">
 
-		                $("#Taggable_Friends_Form").submit();
-                        function handleError(ajaxContext, UpdateTargetId) {
-                            if (ajaxContext != null &&
-                                ajaxContext.responseText != null) {
-		                        $("#" + UpdateTargetId).html(ajaxContext.responseText);
-                            }
-                        }
+		    $("#Taggable_Friends_Form").submit();
+            function handleError(ajaxContext, UpdateTargetId) {
+                if (ajaxContext != null &&
+                    ajaxContext.responseText != null) {
+		            $("#" + UpdateTargetId).html(ajaxContext.responseText);
+                }
+            }
 
         </script>
     }

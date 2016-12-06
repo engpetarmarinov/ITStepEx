@@ -97,15 +97,15 @@ namespace ChallengesProject.Controllers
         public async Task<ActionResult> FB_TaggableFriends()
         {
             //get the access token
-            var accessToken = HttpContext.Items["access_token"].ToString();
+            var accessToken = HttpContext.Items["access_token"]?.ToString();
             if (accessToken != null)
             {
                 //generate app secret prrof
-                var appsecret_proof = accessToken.GenerateAppSecretProof();
+                var appsecretProof = accessToken.GenerateAppSecretProof();
 
                 var fb = new FacebookClient(accessToken);
                 //make the graph call
-                dynamic myInfo = await fb.GetTaskAsync("me/taggable_friends".GraphAPICall(appsecret_proof));
+                dynamic myInfo = await fb.GetTaskAsync("me/taggable_friends".GraphAPICall(appsecretProof));
                 var friendsList = new List<FacebookFriendViewModel>();
                 foreach (dynamic friend in myInfo.data)
                 {

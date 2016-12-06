@@ -36,9 +36,13 @@
 
 
 <script>
+
+    @if (ViewBag.GlobalStatusMessage != null) {
+        @:Challenges.ShowError("@ViewBag.GlobalStatusMessage");
+    }
     var FacebookSearchFriends = (function () {
         var $rows = $(".namesFbFriends");
-        $(document).on("keyup", "#searchFbFriends", function () {            
+        $(document).on("keyup", "#searchFbFriends", function () {
             var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
                 reg = RegExp(val, 'iu'),
                 text;

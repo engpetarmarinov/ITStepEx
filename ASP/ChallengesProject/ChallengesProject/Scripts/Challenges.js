@@ -53,6 +53,11 @@
         }
     }
 
+    var ShowError = function (message) {
+        $('#GlobalStatusMessageText').text(message)
+        $('#GlobalStatusMessage').slideDown();
+    }
+
     //public: Challenge myself callback
     var ChallengeMyselfCallback = function (response) {
         ChangeChallengeUserBtn($('#ChallengeMyself'), response.Status)

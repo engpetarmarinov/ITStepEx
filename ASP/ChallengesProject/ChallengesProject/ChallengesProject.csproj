@@ -251,7 +251,7 @@
     <Compile Include="Controllers\Api\UsersChallengesController.cs" />
     <Compile Include="Controllers\FacebookController.cs" />
     <Compile Include="Extensions\DynamicExtension.cs" />
-    <Compile Include="Extensions\HtmlHelper.cs" />
+    <Compile Include="Extensions\FacebookHtmlExtension.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="PagedListRenderOptionsExtended.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -344,7 +344,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\UsersChallenges\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
