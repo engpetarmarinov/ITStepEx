@@ -13,6 +13,12 @@ namespace ChallengesProject
     {
         protected void Application_Start()
         {
+
+            // Clears all previously registered view engines.
+            ViewEngines.Engines.Clear();
+            // Registers our Razor C# specific view engine.
+            // This can also be registered using dependency injection through the new IDependencyResolver interface.
+            ViewEngines.Engines.Add(new RazorViewEngine());
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

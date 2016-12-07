@@ -25,7 +25,7 @@ namespace ChallengesProject.Services
             return Data.GetRepository<T>().All();
         }
 
-        public IQueryable<T> Get(
+        public virtual IQueryable<T> Get(
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             string includeProperties = "")

@@ -1,40 +1,53 @@
-﻿using ChallengesProject.Data;
+﻿using ChallengesProject.Controllers;
+using ChallengesProject.Data;
 using ChallengesProject.Services;
 using Moq;
 using NUnit.Framework;
 using System.Web.Mvc;
 
-namespace ChallengesProject.Controllers.Tests
+namespace ChallengesProject.Tests.Controllers
 {
-    [TestFixture]
-    public class HomeControllerTests
+    public class HomeControllerTests : AssertionHelper
     {
-        [Test]
-        public void HomeControllerTest()
+        protected HomeController homeController;
+
+        [SetUp]
+        public void SetUp()
         {
             var data = new Mock<IChallengesData>();
             var service = new Mock<ChallengesService>(data.Object);
-            var controller = new HomeController(service.Object);
-            var result = controller.Index() as ViewResult;
-            Assert.AreEqual("Home", result.ViewName);
+            homeController = new HomeController(service.Object);
+        }
+
+        [Test]
+        public void HomeControllerTest()
+        {
+            Expect(homeController, Is.InstanceOf(typeof(HomeController)));
         }
 
         [Test]
         public void IndexTest()
-        {
-
+        {            
+            var result = homeController.Index() as ViewResult;
+            Expect(result, Is.InstanceOf(typeof(ActionResult)));
+            Assert.AreEqual("", result.ViewName); //Standard assertion
+            Expect(result.ViewName, Is.EqualTo("")); //Comes from AssertionHelper. It's more readable!
         }
 
         [Test]
         public void AboutTest()
         {
-
+            var result = homeController.Index() as ViewResult;
+            Expect(result, Is.InstanceOf(typeof(ActionResult)));
+            Expect(result.ViewName, Is.EqualTo(""));
         }
 
         [Test]
         public void ContactTest()
         {
-
+            var result = homeController.Index() as ViewResult;
+            Expect(result, Is.InstanceOf(typeof(ActionResult)));
+            Expect(result.ViewName, Is.EqualTo(""));
         }
     }
 }

@@ -30,9 +30,9 @@ namespace ChallengesProject.Controllers
         // GET: Challenges
         public ActionResult Index(int? page = 1)
         {
-            var challenges = GetChallenges(page);
+            var challenges = GetChallengesPage(page);
             //Pass the action name to the partial view
-            ViewBag.ActionName = "Challenges";            
+            ViewBag.ActionName = "Challenges";
             ViewBag.ImagesPath = ImagesPath;
             return View(challenges);
         }
@@ -44,7 +44,7 @@ namespace ChallengesProject.Controllers
             {
                 return RedirectToAction("Index/"+ page);
             }
-            var challenges = GetChallenges(page);
+            var challenges = GetChallengesPage(page);
             //Pass the action name to the partial view
             string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
             ViewBag.ActionName = actionName;
@@ -52,11 +52,11 @@ namespace ChallengesProject.Controllers
             return PartialView("_ListChallengesPanelsPartial", challenges);
         }
 
-        private IPagedList<ChallengeViewModel> GetChallenges(int? page)
+        public IPagedList<ChallengeViewModel> GetChallengesPage(int? page)
         {
-            var challenges = challengesService.Get(
-                    orderBy: cs => cs.OrderByDescending(c => c.Created)
-                )?.ProjectTo<ChallengeViewModel>();//ToList(); -- Do not invoke ToList here, ToPagedList will put limit and offset
+            var challenges = challengesService
+                .GetChallengesOrderedByDate()?
+                .ProjectTo<ChallengeViewModel>();//ToList(); -- Do not invoke ToList here, ToPagedList will put limit and offset
             int pageSize = 2;
             int pageNumber = (page ?? 1);
             return challenges?.ToPagedList(pageNumber, pageSize);

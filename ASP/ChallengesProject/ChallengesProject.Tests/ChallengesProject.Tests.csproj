@@ -91,13 +91,19 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Controllers\ChallengesControllerTests.cs" />
     <Compile Include="Controllers\HomeControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Setup.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChallengesProject.Data\ChallengesProject.Data.csproj">
       <Project>{8516C6E7-B2EC-45A3-8056-6C30967F7424}</Project>
       <Name>ChallengesProject.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ChallengesProject.Models\ChallengesProject.Models.csproj">
+      <Project>{f161ca55-76f7-4e82-96e6-d5db1c5a7702}</Project>
+      <Name>ChallengesProject.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\ChallengesProject.Services\ChallengesProject.Services.csproj">
       <Project>{853FFB6D-78AB-4556-BCAF-915C2D50BB1F}</Project>
