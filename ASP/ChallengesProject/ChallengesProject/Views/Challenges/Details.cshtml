@@ -14,17 +14,21 @@
     </div>
     <p>Created by @Model.UserName</p>
     <hr/>
-    <p>
-        @using (Ajax.BeginForm(new AjaxOptions {
-            HttpMethod = "POST",
-            Url = @Url.HttpRouteUrl("DefaultApi", new { controller = "UsersChallenges", action = "MyChallenges", id = Model.Id }),
-            OnSuccess = "Challenges.ChallengeMyselfCallback"
-        }))
-        {
-            @Html.Hidden("challengeId", @Model.Id)
-            <input type="submit" class="btn btn-warning btn-lg" id="ChallengeMyself" value="Challenge Myself" />
-        }
-    </p>
+    @if (Request.IsAuthenticated)
+    {
+        <p>
+            @using (Ajax.BeginForm(new AjaxOptions
+            {
+                HttpMethod = "POST",
+                Url = @Url.HttpRouteUrl("DefaultApi", new { controller = "UsersChallenges", action = "MyChallenges", id = Model.Id }),
+                OnSuccess = "Challenges.ChallengeMyselfCallback"
+            }))
+            {
+                @Html.Hidden("challengeId", @Model.Id)
+                <input type="submit" class="btn btn-warning btn-lg" id="ChallengeMyself" value="Challenge Myself" />
+            }
+        </p>
+    }    
 </div>
 
 @section Scripts {

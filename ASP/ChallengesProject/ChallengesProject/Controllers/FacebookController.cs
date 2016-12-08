@@ -117,7 +117,7 @@ namespace ChallengesProject.Controllers
             }
             else
             {
-                throw new HttpException(404, "Missing Access Token");
+                return PartialView("_ExternalLoginsListPartial", new ExternalLoginListViewModel());
             }
         }
 

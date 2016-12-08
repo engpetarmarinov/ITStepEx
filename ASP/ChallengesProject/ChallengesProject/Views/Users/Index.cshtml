@@ -14,7 +14,7 @@
     }
 </div>
 
-@if (Request.IsAuthenticated && Context.ApplicationInstance.Context.Items["access_token"] != null)
+@if (Request.IsAuthenticated)
 {
 <div class="jumbotron">
     @using (Ajax.BeginForm(
@@ -32,7 +32,7 @@
         }
     ))
     {
-        <div class="hidden" id="divLoadingTaggableFriends">
+        <div style="display:none" id="divLoadingTaggableFriends">
             <img src="~/images/loader.gif" class="center img-responsive" />
         </div>
     }
