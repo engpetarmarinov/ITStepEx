@@ -52,12 +52,12 @@ namespace ChallengesProject.Controllers
             return PartialView("_ListChallengesPanelsPartial", challenges);
         }
 
-        public IPagedList<ChallengeViewModel> GetChallengesPage(int? page)
+        public IPagedList<ChallengeViewModel> GetChallengesPage(int? page, int? perPage = 2)
         {
             var challenges = challengesService
                 .GetChallengesOrderedByDate()?
                 .ProjectTo<ChallengeViewModel>();//ToList(); -- Do not invoke ToList here, ToPagedList will put limit and offset
-            int pageSize = 2;
+            int pageSize = perPage ?? 2;
             int pageNumber = (page ?? 1);
             return challenges?.ToPagedList(pageNumber, pageSize);
         }
