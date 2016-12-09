@@ -4,6 +4,7 @@ before_install:
   - sudo apt-get install nunit-console
 before_script:
   - nuget restore C#/2\ Students/Students/Students.sln
+  - nuget restore ASP/ChallengesProject/ChallengesProject.sln
 script:
   - xbuild /p:Configuration=Release C#/2\ Students/Students/Students.sln
   - xbuild /p:Configuration=Release ASP/ChallengesProject/ChallengesProject.sln
