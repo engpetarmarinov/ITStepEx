@@ -101,7 +101,7 @@ namespace ChallengesProject.Tests.Controllers
         [TestCase(12, 2)]
         [TestCase(51, 0)]
         [TestCase(151, 0)]
-        public void ChallengesTest(int page, int numberOfChallengesExpected)
+        public void ChallengesTestAjax(int page, int numberOfChallengesExpected)
         {
             var queryableList = GetStubChallenges();
             challengesServiceMocked
@@ -131,6 +131,29 @@ namespace ChallengesProject.Tests.Controllers
             var result = challengesController.Challenges(page) as PartialViewResult;
             var model = result.Model as IPagedList<ChallengeViewModel>;
             Expect(model.Count(), Is.EqualTo(numberOfChallengesExpected));
+        }
+
+        [Test]
+        [TestCase(3)]
+        [TestCase(10)]
+        public void ChallengesTestNotAjaxShouldRedirectToIndex(int page)
+        {
+            // Mock Request
+            var request = new Mock<HttpRequestBase>();
+            request.SetupGet(x => x.Headers).Returns(
+                new System.Net.WebHeaderCollection {
+                    {"foo", "bar"}
+                }
+            );
+            // Mock RouteData
+            var routeData = new RouteData();
+            routeData.Values.Add("action", "Challenges");
+            var context = new Mock<HttpContextBase>();
+            context.SetupGet(x => x.Request).Returns(request.Object);
+            challengesController.ControllerContext = new ControllerContext(context.Object, routeData, challengesController);
+
+            var result = challengesController.Challenges(page) as RedirectToRouteResult;
+            Expect(result.RouteValues["action"], Is.EqualTo("Index/" + page));
         }
 
         [Test]
