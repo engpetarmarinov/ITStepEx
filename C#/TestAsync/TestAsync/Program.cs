@@ -33,6 +33,7 @@ namespace TestAsync
         private static async Task Worker1()
         {
             var result = await CalculateAsync();
+            //continuation block of code after await
             Console.WriteLine(result);
         }
         
@@ -44,6 +45,7 @@ namespace TestAsync
                 Thread.Sleep(2000);
                 Console.WriteLine("work 2");
             });
+            //continuation block of code after await
             Thread.Sleep(3000);
             Console.WriteLine("work 2 second line");
         }
@@ -54,6 +56,7 @@ namespace TestAsync
                 Thread.Sleep(2000);
                 return "Work 1";
             });
+            //continuation block of code after await
             Thread.Sleep(1000);
             Console.WriteLine("work 1 second line");
             return result;
