@@ -10,7 +10,7 @@ namespace TestAsync
         static void Main(string[] args)
         {
             //Set the name of the main thread
-            Thread.CurrentThread.Name = "Main";
+            SetCurrentThreadName("Main");
             //Measure the elapsed time
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -20,6 +20,13 @@ namespace TestAsync
 
             Console.WriteLine("Thread name: {0}", Thread.CurrentThread.Name);
             Console.WriteLine("Time elapsed: {0} secs", stopwatch.Elapsed.TotalSeconds);
+        }
+
+        private static void SetCurrentThreadName(string name)
+        {
+            if (Thread.CurrentThread.Name == null) {
+                Thread.CurrentThread.Name = name;
+            }
         }
 
         public static void StartWorking()
@@ -45,7 +52,7 @@ namespace TestAsync
             
             await Task.Run(() =>
             {
-                Thread.CurrentThread.Name = "Worker2";
+                SetCurrentThreadName("Worker2");
                 //This will be executed in the Task worker thread
                 Thread.Sleep(2000);
                 Console.WriteLine("Thread name: {0}", Thread.CurrentThread.Name);
@@ -60,7 +67,7 @@ namespace TestAsync
         private static async Task<string> CalculateAsync()
         {
             var result = await Task<int>.Run(() => {
-                Thread.CurrentThread.Name = "Worker1";
+                SetCurrentThreadName("Worker1");
                 Thread.Sleep(2000);
                 return "Work 1";
             });
