@@ -9,6 +9,8 @@ namespace TestAsync
     {
         static void Main(string[] args)
         {
+            //Set the name of the main thread
+            Thread.CurrentThread.Name = "Main";
             //Measure the elapsed time
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -16,7 +18,7 @@ namespace TestAsync
             //The method is called synchronously
             StartWorking();
 
-            Console.WriteLine("Main thread");
+            Console.WriteLine("Thread name: {0}", Thread.CurrentThread.Name);
             Console.WriteLine("Time elapsed: {0} secs", stopwatch.Elapsed.TotalSeconds);
         }
 
@@ -31,33 +33,40 @@ namespace TestAsync
         }
 
         private static async Task Worker1()
-        {
+        {            
             var result = await CalculateAsync();
             //continuation block of code after await
+            Console.WriteLine("Thread name: {0}", Thread.CurrentThread.Name);
             Console.WriteLine(result);
         }
         
         private static async Task Worker2()
         {
+            
             await Task.Run(() =>
             {
+                Thread.CurrentThread.Name = "Worker2";
                 //This will be executed in the Task worker thread
                 Thread.Sleep(2000);
+                Console.WriteLine("Thread name: {0}", Thread.CurrentThread.Name);
                 Console.WriteLine("work 2");
             });
             //continuation block of code after await
             Thread.Sleep(3000);
+            Console.WriteLine("Thread name: {0}", Thread.CurrentThread.Name);
             Console.WriteLine("work 2 second line");
         }
         
         private static async Task<string> CalculateAsync()
         {
             var result = await Task<int>.Run(() => {
+                Thread.CurrentThread.Name = "Worker1";
                 Thread.Sleep(2000);
                 return "Work 1";
             });
             //continuation block of code after await
             Thread.Sleep(1000);
+            Console.WriteLine("Thread name: {0}",Thread.CurrentThread.Name);
             Console.WriteLine("work 1 second line");
             return result;
         }
